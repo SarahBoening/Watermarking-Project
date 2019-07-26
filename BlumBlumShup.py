@@ -23,7 +23,7 @@ def isBBSSeed(p, q, s):
 def getBBSPath(num, xi, m, max_x, max_y):
     s = (2, num)
     path = np.zeros(s, dtype=int)
-    for i in range(0, num-1):
+    for i in range(0, num):
         # generate coordinates (x,y)
         offset_x, xi = bbs(64, xi, m)
         offset_x = offset_x % max_x
@@ -34,7 +34,7 @@ def getBBSPath(num, xi, m, max_x, max_y):
         while isNotOk:
             isNotOk = False
             if i != 0:
-                for j in range(0, i-1):
+                for j in range(0, i):
                     if path[0, i] == offset_x and path[1, i] == offset_y:
                         isNotOk = True
             # was already used -> generate new coordinates
