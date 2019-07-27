@@ -1,7 +1,6 @@
 # Implements all needed functionality for the Blum Blum Shup random number generator
 import numpy as np
 
-
 def bbs(n, xi, m):
     seed = xi
     bits = 0
@@ -21,6 +20,9 @@ def isBBSSeed(p, q, s):
 
 
 def getBBSPath(num, xi, m, max_x, max_y):
+    """
+    Generate the path of indexes [row, column] to use for embedding
+    """
     s = (2, num)
     path = np.zeros(s, dtype=int)
     for i in range(0, num):
@@ -46,5 +48,4 @@ def getBBSPath(num, xi, m, max_x, max_y):
         # save coordinates
         path[0, i] = offset_x
         path[1, i] = offset_y
-
     return path

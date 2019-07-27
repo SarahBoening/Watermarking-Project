@@ -4,17 +4,17 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
 
-# img = mpimg.imread('picture.jpg')
+# open image (default in RGB)
 img = Image.open('picture.jpg')
-#print(np.array(img)[:10, :10, 0])
-#img.show()
+# img.show()
+# length of the embeded string
 l = 100
-w = np.random.normal(0.0, 1.0, (1,l))
+# watermark drawn independently from N(0, 1)-distribution
+w = np.random.normal(0.0, 1.0, (1,l)) # e.g [[ ... ]]
+print(w)
+# use embedder
 s = noninvertibleEmbedder(w, img, embed_type='BBS')
-image = Image.fromarray(s.astype('uint8'), 'RGB')
-image.show()
+# open image in RGB
+wm_img = Image.fromarray(s.astype('uint8'), mode='RGB')
+wm_img.show()
 # save image
-
-# print(img.shape)
-#plt.imshow(s)
-#plt.show()
