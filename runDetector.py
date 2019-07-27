@@ -13,10 +13,16 @@ l = 100
 w = np.random.normal(0.0, 1.0, (1,l))
 s = noninvertibleEmbedder(w, img, embed_type='DCT')
 image = Image.fromarray(s.astype('uint8'), 'RGB')
-image.show()
+# image.show()
 # save image
 
-Detector.detect(w, image, img)
+print("should be true: " + str(Detector.detect(w, image, img)))
 # print(img.shape)
 #plt.imshow(s)
 #plt.show()
+
+w_ = np.random.normal(0.0, 1.0, (1,l))
+s_ = noninvertibleEmbedder(w_, img, embed_type='DCT')
+image_ = Image.fromarray(s_.astype('uint8'), 'RGB')
+
+print("should be false: " + str(Detector.detect(w, image_, img)))
