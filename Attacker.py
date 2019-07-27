@@ -1,29 +1,35 @@
 import numpy as np
-import NoninvertableEmbedder as nie
 import YCrCbDCT as dct
-
+from NoninvertibleEmbedder import *
+from PIL import Image
 
 def attackerAgainstNoninvertibleEmbedder(s, embed_type='normal'):
-    # 1. DCT of s
+    # step 1: perform DCT of watermarked image
     S, x, y = dct.jpgDCT(s)
-    # 2. Variations: take l most significant bits / bbs path / upper left corner block values
-    l = 10
-    # 3. generate 2 vectors u, v with random values e N(0,1)
+    # initialize l
+    l = 100
+    # step 2: generate 2 vectors u, v with random values e N(0,1)
     u = np.random.uniform(0.0, 1.0, (1, l))
     v = np.random.uniform(0.0, 1.0, (1, l))
-    # 4. inverse embedding with u
-    # 5. inverse embedding with v
-    # 6. replace coefficients
-    # 7. inverse transform
-
-    # 8. compute fake original
-    fake_c = np.zeros((x, y, 3))
-    # 9. hash bit string of length l
-    b = nie.hashimage(fake_c, l)
-    # 10. compute fake watermark
-    fake_w = []
-    # 11. generate fake watermarked work with embedder
-    fake_s = nie.noninvertibleEmbedder(fake_c, fake_w)
+    # step 3: invert embedding
+    # inverse embedding with u
+    c1 = invertEmbedding(S, u, np.ones(l), l, x, y, embed_type)
+    # inverse embedding with v
+    c2 = invertEmbedding(S, v, np.zeros(l), l, x, y, embed_type)
+    # step 4: compute fake original by averaging
+    fake_c = np.array((c1 + c2) / 2)
+    # print("hello1","s",s,"c1",c1,"c2",c2,"fake",fake_c)
+    fake_c_img = Image.fromarray(fake_c.astype('uint8'), mode='RGB')
+    # step 5: hash bit string of length l
+    b = hashimage(fake_c_img, l)
+    # step 6: compute fake watermark
+    fake_w = np.array([np.zeros(l)])
+    for i in range(0, l):
+        if b[i] == 1:
+            fake_w[0][i] = u[0][i]
+        elif b[i] == 0:
+            fake_w[0][i] = v[0][i]
+    # step 7: generate fake watermarked work with embedder
+    fake_s = noninvertibleEmbedder(fake_w, fake_c_img)
 
     return fake_s, fake_c, fake_w
-

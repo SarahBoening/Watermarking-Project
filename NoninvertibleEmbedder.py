@@ -89,16 +89,57 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
         '''
         # get indices of the most significant coefficients in d
         # sort and get flat list of indices
+        temp = np.copy(d)
         i = (-d).argsort(axis=None, kind='mergesort')
         # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
         j = np.unravel_index(i, d.shape)
         for i in range(0, l):
             # embedding at l most significant coefficients
             if b[i] == 1:
-                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
+                temp[j[0][i], j[1][i], j[2][i]] = temp[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
             elif b[i] == 0:
-                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
+                temp[j[0][i], j[1][i], j[2][i]] = temp[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
 
     # step 4: compute the watermarked image by inverse DCT
-    s = dct.jpgInverseDCT(d, x, y)
+    s = dct.jpgInverseDCT(temp, x, y)
     return s
+
+
+def invertEmbedding(S, wm, b, l, x, y, embed_type='Normal', alpha=0.025):
+    """
+    Embedd the image using noninvertible algorithms from lecture 13.
+
+    S: DCT of stegowork (the watermarked image)
+    wm: fake watermark
+    b: fake hash bitstring
+    l: length of embed string
+    x: number of rows
+    y: number of columns
+    embed_type: switch between embedding methods
+        1. DCT - use DCT coefficients from 8x8 jpeg transformation of Cb color channel
+        2. BBS - Blum, Blum, Shup to define the paths of the coefficients
+        3. Standard case: most l significant coefficients
+    returns: an image as invertion of embedding function
+    """
+
+    # calculate DCT of fake cover work
+    '''
+    Standard case, take the l most significant coefficients
+    '''
+    d = S
+    C = np.copy(d)
+    # get indices of the most significant coefficients in d
+    # sort and get flat list of indices
+    i = (-d).argsort(axis=None, kind='mergesort')
+    # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
+    j = np.unravel_index(i, d.shape)
+    for i in range(0, l):
+        # invert embedding at l most significant coefficients
+        if b[i] == 1:
+            C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 + alpha * wm[0, i])
+        elif b[i] == 0:
+            C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 - alpha * wm[0, i])
+
+    # compute the fake coverwork by inverse DCT
+    c = dct.jpgInverseDCT(C, x, y)
+    return c
