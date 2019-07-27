@@ -6,53 +6,63 @@ to decide if the extracted and given watermark are the same.
 """
 
 import math as m
+import numpy as np
+from pprint import pprint as pp
 
-def detect(given_wm, stegowork, coverwork, p, q):
+import BlumBlumShup as BBS
+from NoninvertibleEmbedder import hashimage
+from YCrCbDCT import jpgDCT
+
+def detect(given_wm, stegowork, coverwork, TAU = 0.7): # TAU is randomly chosen
     """
     Execute detection pipeline.
 
     given_wm: list containing the watermark to check against
     stegowork: multi-dimensional list, watermarked image
     coverwork: multi-dimensional list, original coverwork without watermark
-    p, q: integers, primes used to calculate a random path
+    TAU: float, threshold value to decide if given_wm is present in the stegowork.
 
     returns True or False - given_wm is present in the stegowork.
     """
-    TAU = 0.7
 
-    path = BBS(p, q) # used in the extractor functions?
-    stego_features = extract_features(stegowork) # probably replace with modified_DCT()
-    cover_features = extract_features(coverwork) # probably replace with modified_DCT()
-    extracted_wm = extract_watermark(stego_features, cover_features)
-    similarity = calc_similarity(given_wm, extracted_wm)
-    if similarity > TAU:
-        return True
-    else:
-        return False
+    path = hashimage(coverwork, given_wm.shape[1]) # used in the extractor functions?
+    stego_coeffs, x, y = jpgDCT(stegowork) # probably replace with modified_DCT()
+    cover_coeffs, x, y = jpgDCT(coverwork) # probably replace with modified_DCT()
+    extracted_wm = inverse_modified_DCT(cover_coeffs,stego_coeffs,  path, given_wm.shape[1])
+    # print(np.asarray(extracted_wm))
+    # print(given_wm)
+    for i in range(len(given_wm)):
+        print(abs(np.asarray(extracted_wm)[i]) - abs(given_wm[i]))
 
-def extract_features(image):
-    """
-    Use a modified DCT to extract features from an image.
+    # similarity = calc_similarity(given_wm, extracted_wm)
+#     if similarity > TAU:
+#         return True
+#     else:
+#         return False
 
-    image: multi-dimensional list, an image
-
-    returns list of tuples, list contains feature positions
-    """
-    # features = modified_DCT(coverwork)
-    # return features
-    pass
-
-def extract_watermark(stego_features, cover_features):
-    """
-    Extract watermark using the inversed embedding function.
-
-    stego_features: list of tuples, list contains feature positions
-    cover_features: list of tuples, list contains feature positions
-
-    returns list, contains the extracted watermark
-    """
-    watermark = inverse_modified_DCT(stego_features, cover_features)
-    pass
+def inverse_modified_DCT(sw_coeffs, cw_coeffs, path, l, alpha = 0.025):
+    watermark = list()
+    i = 0
+    stop = False
+    for j in range(8, sw_coeffs.shape[0] - 8, 8):
+        for k in range(8, sw_coeffs.shape[1] - 8, 8):
+            if path[i] == 1:
+                w = sw_coeffs[j,k,2]/(cw_coeffs[j,k,2] * alpha) - 1/ alpha
+                watermark.append(w)
+            else:
+                w = 1/alpha - sw_coeffs[j,k,2]/(cw_coeffs[j,k,2] * alpha)
+                watermark.append(w)
+            i += 1
+            # print(f"sw: {sw_coeffs[j,k,2]}")
+            # print(f"cw: {cw_coeffs[j,k,2]}")
+            # print(f"w: {w}")
+            if i >= l:
+                stop = True
+                break
+        if stop:
+            break
+    
+    return watermark
 
 def calc_similarity(given_wm, extracted_wm):
     """
