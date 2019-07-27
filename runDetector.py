@@ -3,26 +3,20 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
-
 import Detector
-# img = mpimg.imread('picture.jpg')
-img = Image.open('picture.jpg')
-#print(np.array(img)[:10, :10, 0])
-#img.show()
+
 l = 100
-w = np.random.normal(0.0, 1.0, (1,l))
-s = noninvertibleEmbedder(w, img, embed_type='DCT')
-image = Image.fromarray(s.astype('uint8'), 'RGB')
-# image.show()
-# save image
+embed_type = 'BBS'
 
-print("should be true: " + str(Detector.detect(w, image, img)))
-# print(img.shape)
-#plt.imshow(s)
-#plt.show()
+# open stegowork, coverwork and watermark
+c = Image.open('picture.jpg')
+w = np.load(embed_type+'_wm'+'.npy')
+s = Image.open(embed_type+'_wm_picture''.jpg')
+print("test against true author:")
+print(Detector.detect(w, s, c, embed_type=embed_type))
 
-w_ = np.random.normal(0.0, 1.0, (1,l))
-s_ = noninvertibleEmbedder(w_, img, embed_type='DCT')
-image_ = Image.fromarray(s_.astype('uint8'), 'RGB')
-
-print("should be false: " + str(Detector.detect(w, image_, img)))
+# open fake original and fake watermark
+c2 = Image.open(embed_type+'_fake_picture'+'.jpg')
+w = np.load(embed_type+'_fake_wm'+'.npy')
+print("test against fake author:")
+print(Detector.detect(w, s, c2, embed_type=embed_type))

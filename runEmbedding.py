@@ -5,7 +5,7 @@ import matplotlib.image as mpimg
 from PIL import Image
 
 # initialize embedding type
-embed_type = 'normal'
+embed_type = 'BBS'
 # open image (default in RGB)
 img = Image.open('picture.jpg')
 # img.show()
@@ -19,5 +19,6 @@ s = noninvertibleEmbedder(w, img, embed_type)
 # convert nparray to image
 wm_img = Image.fromarray(s.astype('uint8'), mode='RGB')
 # wm_img.show()
-# save image
-wm_img.save('wm_picture_'+embed_type+'.jpg')
+# save image and watermark
+wm_img.save(embed_type+'_wm_picture''.jpg')
+np.save(embed_type+'_wm',w)

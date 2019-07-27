@@ -1,0 +1,12 @@
+
+# use DCT as embed_type
+test against true author:
+(-0.9315373874901379, True)
+test against fake author:
+(-0.025051832442709664, False)
+
+# use normal as embed_type
+test against true author:
+(-0.6385693698468443, False)
+test against fake author:
+(0.03160384367087288, False)

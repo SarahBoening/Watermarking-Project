@@ -18,7 +18,6 @@ def attackerAgainstNoninvertibleEmbedder(s, embed_type='normal'):
     c2 = invertEmbedding(S, v, np.zeros(l), l, x, y, embed_type)
     # step 4: compute fake original by averaging
     fake_c = np.array((c1 + c2) / 2)
-    # print("hello1","s",s,"c1",c1,"c2",c2,"fake",fake_c)
     fake_c_img = Image.fromarray(fake_c.astype('uint8'), mode='RGB')
     # step 5: hash bit string of length l
     b = hashimage(fake_c_img, l)

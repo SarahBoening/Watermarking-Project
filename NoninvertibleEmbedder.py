@@ -74,6 +74,7 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
         xi = 20151208
         temp = np.array(c)
         path = bbs.getBBSPath(l, xi, m, temp.shape[0], temp.shape[1])
+        np.save("path", path)
         for p in range(0, path.shape[1]):
             # get the next block position to embed
             m = path[0][p]
@@ -81,7 +82,7 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
             # currently also embedd at Cb color channel (dimension 2)
             if b[p] == 1:
                 d[m, n, 2] = d[m, n, 2] * (1 + alpha * wm[0, p])
-            else:
+            elif b[p] == 0:
                 d[m, n, 2] = d[m, n, 2] * (1 - alpha * wm[0, p])
     else:
         '''
@@ -89,19 +90,19 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
         '''
         # get indices of the most significant coefficients in d
         # sort and get flat list of indices
-        temp = np.copy(d)
-        i = (-d).argsort(axis=None, kind='mergesort')
+        temp2 = np.copy(d)
+        i = (-temp2).argsort(axis=None, kind='mergesort')
         # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
-        j = np.unravel_index(i, d.shape)
+        j = np.unravel_index(i, temp2.shape)
         for i in range(0, l):
             # embedding at l most significant coefficients
             if b[i] == 1:
-                temp[j[0][i], j[1][i], j[2][i]] = temp[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
             elif b[i] == 0:
-                temp[j[0][i], j[1][i], j[2][i]] = temp[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
 
     # step 4: compute the watermarked image by inverse DCT
-    s = dct.jpgInverseDCT(temp, x, y)
+    s = dct.jpgInverseDCT(d, x, y)
     return s
 
 
@@ -123,22 +124,67 @@ def invertEmbedding(S, wm, b, l, x, y, embed_type='Normal', alpha=0.025):
     """
 
     # calculate DCT of fake cover work
-    '''
-    Standard case, take the l most significant coefficients
-    '''
-    d = S
-    C = np.copy(d)
-    # get indices of the most significant coefficients in d
-    # sort and get flat list of indices
-    i = (-d).argsort(axis=None, kind='mergesort')
-    # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
-    j = np.unravel_index(i, d.shape)
-    for i in range(0, l):
-        # invert embedding at l most significant coefficients
-        if b[i] == 1:
-            C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 + alpha * wm[0, i])
-        elif b[i] == 0:
-            C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 - alpha * wm[0, i])
+    if embed_type == 'DCT':
+        '''
+        Use the DCT-coefficients (upper left corner of the 8 x 8-block decomposition) of the Cb
+        color channel after the standard jpg-transformation of all 8  8-block (except of the
+        outer blocks) for the embedding and detection.
+        '''
+        C = np.copy(S)
+        i = 0
+        stop = False # stop when finish embedding all bits in wm
+        # take the left upper corner coefficient of each block (except the outer ones)
+        for j in range(8, C.shape[0] - 8, 8):
+            for k in range(8, C.shape[1] - 8, 8):
+                # invert embedding at Cb color channel (dimension 2)
+                if b[i] == 1:
+                    C[j, k, 2] = C[j, k, 2] / (1 + alpha * wm[0, i])
+                elif b[i] == 0:
+                    C[j, k, 2] = C[j, k, 2] / (1 - alpha * wm[0, i])
+                i += 1
+                if i >= l:
+                    stop = True
+                    break
+            if stop:
+                break
+    elif embed_type == 'BBS':
+        '''
+        Use the PRNG of Blum, Blum, and Shup with the primes p = 59999 and q = 60107 to
+        determine the ordering of the ` most significant coefficients for the embedding (and the
+        detection). Use 20151208 as initial value of xi.
+        '''
+        C = np.copy(S)
+        p = 5999
+        q = 60107
+        m = p * q
+        xi = 20151208
+        path = bbs.getBBSPath(l, xi, m, C.shape[0], C.shape[1])
+        for p in range(0, path.shape[1]):
+            # get the next block position to embed
+            m = path[0][p]
+            n = path[1][p]
+            # currently also invert embedding at Cb color channel (dimension 2)
+            if b[p] == 1:
+                C[m, n, 2] = C[m, n, 2] / (1 + alpha * wm[0, p])
+            else:
+                C[m, n, 2] = C[m, n, 2] / (1 - alpha * wm[0, p])
+    else:
+        '''
+        Standard case, take the l most significant coefficients
+        '''
+        d = S
+        C = np.copy(d)
+        # get indices of the most significant coefficients in d
+        # sort and get flat list of indices
+        i = (-d).argsort(axis=None, kind='mergesort')
+        # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
+        j = np.unravel_index(i, d.shape)
+        for i in range(0, l):
+            # invert embedding at l most significant coefficients
+            if b[i] == 1:
+                C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 + alpha * wm[0, i])
+            elif b[i] == 0:
+                C[j[0][i], j[1][i], j[2][i]] = C[j[0][i], j[1][i], j[2][i]] / (1 - alpha * wm[0, i])
 
     # compute the fake coverwork by inverse DCT
     c = dct.jpgInverseDCT(C, x, y)
