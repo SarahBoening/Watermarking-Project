@@ -13,7 +13,8 @@ import BlumBlumShup as BBS
 from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
 
-def detect(given_wm, stegowork, coverwork, TAU = 0.7): # TAU is randomly chosen
+
+def detect(given_wm, stegowork, coverwork, TAU=0.7):  # TAU is randomly chosen
     """
     Execute detection pipeline.
 
@@ -25,44 +26,44 @@ def detect(given_wm, stegowork, coverwork, TAU = 0.7): # TAU is randomly chosen
     returns True or False - given_wm is present in the stegowork.
     """
 
-    path = hashimage(coverwork, given_wm.shape[1]) # used in the extractor functions?
-    stego_coeffs, x, y = jpgDCT(stegowork) # probably replace with modified_DCT()
-    cover_coeffs, x, y = jpgDCT(coverwork) # probably replace with modified_DCT()
-    extracted_wm = inverse_modified_DCT(cover_coeffs,stego_coeffs,  path, given_wm.shape[1])
-    # print(np.asarray(extracted_wm))
-    # print(given_wm)
-    for i in range(len(given_wm)):
-        print(abs(np.asarray(extracted_wm)[i]) - abs(given_wm[i]))
+    # used in the extractor functions?
+    path = hashimage(coverwork, given_wm.shape[1])
+    # probably replace with modified_DCT()
+    stego_coeffs, x, y = jpgDCT(stegowork)
+    # probably replace with modified_DCT()
+    cover_coeffs, x, y = jpgDCT(coverwork)
+    extracted_wm = inverse_modified_DCT(
+        cover_coeffs, stego_coeffs,  path, given_wm.shape[1])
 
-    # similarity = calc_similarity(given_wm, extracted_wm)
-#     if similarity > TAU:
-#         return True
-#     else:
-#         return False
+    similarity = calc_similarity(np.asarray(extracted_wm), given_wm[0])
+    pp(abs(similarity))
+    if abs(similarity) > TAU:
+        return True
+    else:
+        return False
 
-def inverse_modified_DCT(sw_coeffs, cw_coeffs, path, l, alpha = 0.025):
+
+def inverse_modified_DCT(sw_coeffs, cw_coeffs, path, l, alpha=0.2):
     watermark = list()
     i = 0
     stop = False
     for j in range(8, sw_coeffs.shape[0] - 8, 8):
         for k in range(8, sw_coeffs.shape[1] - 8, 8):
             if path[i] == 1:
-                w = sw_coeffs[j,k,2]/(cw_coeffs[j,k,2] * alpha) - 1/ alpha
+                w = sw_coeffs[j, k, 2]/(cw_coeffs[j, k, 2] * alpha) - 1 / alpha
                 watermark.append(w)
             else:
-                w = 1/alpha - sw_coeffs[j,k,2]/(cw_coeffs[j,k,2] * alpha)
+                w = 1/alpha - sw_coeffs[j, k, 2]/(cw_coeffs[j, k, 2] * alpha)
                 watermark.append(w)
             i += 1
-            # print(f"sw: {sw_coeffs[j,k,2]}")
-            # print(f"cw: {cw_coeffs[j,k,2]}")
-            # print(f"w: {w}")
             if i >= l:
                 stop = True
                 break
         if stop:
             break
-    
+
     return watermark
+
 
 def calc_similarity(given_wm, extracted_wm):
     """
@@ -74,8 +75,12 @@ def calc_similarity(given_wm, extracted_wm):
     returns: float, calculated similarity value
     """
 
-    numerator = extracted_wm * given_wm
-    denominator = m.sqrt(extracted_wm * extracted_wm) # basic spread spectrum scheme
-    # denominator = m.sqrt((extracted_wm * extracted_wm) * (given_wm * given_wm))
+    numerator = np.dot(extracted_wm, given_wm)
+    denominator = m.sqrt(np.dot(extracted_wm, extracted_wm))  # basic spread spectrum scheme
+    denominator = m.sqrt(
+        np.dot(extracted_wm, extracted_wm) * np.dot(given_wm, given_wm)
+    )
+    pp(numerator)
+    pp(denominator)
     similarity = numerator / denominator
     return similarity
