@@ -2,6 +2,14 @@
 import numpy as np
 
 def bbs(n, xi, m):
+    """
+    Generate the next coefficient.
+
+    n: number of bits for the coefficient
+    xi: current seed
+    m: modulo
+    returns: next random coefficient, next seed
+    """
     seed = xi
     bits = 0
     for i in range(1, n):
@@ -9,21 +17,19 @@ def bbs(n, xi, m):
         bits += pow(2, n-i) * (seed % 2)
     return bits, seed
 
-
-def isBBSSeed(p, q, s):
-    isIt = True
-    if s % p == 0:
-        isIt = False
-    elif s&q == 0:
-        isIt = True
-    return isIt
-
-
 def getBBSPath(num, xi, m, max_x, max_y):
     """
-    Generate the path of indexes [row, column] to use for embedding
+    Generate the path of indices [row, column] to use for embedding.
+
+    num: length of the path
+    xi: initial seed
+    m: modulo
+    max_x: maximum value of x
+    max_y: maximum value of y
+    returns: path e.g [[r1,c1],[r2,c2],...]
     """
     s = (2, num)
+    # initialize path
     path = np.zeros(s, dtype=int)
     for i in range(0, num):
         # generate coordinates (x,y)

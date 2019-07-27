@@ -16,7 +16,7 @@ def hashimage(image, l):
     hashval = bin(int(str(imagehash.average_hash(image)), 16))
     # if hash value smaller than l add zeros at the end
     if l > len(hashval):
-        hashval +=('0' * (l - len(hashval)+2))
+        hashval += ('0' * (l - len(hashval) + 2))
     # print(hashval); e.g 0b1100000011110001111111101111011011000001000000000000000000000000000000000000000000000000000000000000
     # convert the hash value to array of bits and return; e.g [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     return [int(d) for d in hashval[2:(l + 2)]]
@@ -31,7 +31,7 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
     embed_type: switch between embedding methods
         1. DCT - use DCT coefficients from 8x8 jpeg transformation of Cb color channel
         2. BBS - Blum, Blum, Shup to define the paths of the coefficients
-
+        3. Standard case: most l significant coefficients
     returns: watermarked image
     """
     l = wm.shape[1]
@@ -39,7 +39,6 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
     b = hashimage(c, l)
     # step 2: perform DCT to get coefficients in blocks
     d, x, y = dct.jpgDCT(c)
-
     # step 3: insert watermark using 2 variations of embedding type (BBS / DCT)
     if embed_type == 'DCT':
         '''
@@ -52,7 +51,7 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
         # take the left upper corner coefficient of each block (except the outer ones)
         for j in range(8, d.shape[0] - 8, 8):
             for k in range(8, d.shape[1] - 8, 8):
-                # Cb color channel is at dim 2
+                # embedd at Cb color channel (dimension 2)
                 if b[i] == 1:
                     d[j, k, 2] = d[j, k, 2] * (1 + alpha * wm[0, i])
                 elif b[i] == 0:
@@ -63,7 +62,6 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
                     break
             if stop:
                 break
-
     elif embed_type == 'BBS':
         '''
         Use the PRNG of Blum, Blum, and Shup with the primes p = 59999 and q = 60107 to
@@ -72,29 +70,35 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
         '''
         p = 5999
         q = 60107
-        m = p*q
+        m = p * q
         xi = 20151208
         temp = np.array(c)
-        path = bbs.getBBSPath(l, xi, m, temp.shape[0],temp.shape[1])
-        i = 0
-        stop = False # stop when finish embedding all bits in wm
-        for j in range(0, path.shape[0]):
-            for k in range(0, path.shape[1]):
-                # get the next block position to embed
-                m = path[0, i]
-                n = path[1, i]
-                # Cb color channel is at dim 2
-                if b[i] == 1:
-                    d[m, n, 2] = d[m, n, 2] * (1 + alpha * wm[0, i])
-                elif b[i] == 0:
-                    d[m, n, 2] = d[m, n, 2] * (1 - alpha * wm[0, i])
-                i += 1
-                if i >= l:
-                    stop = True
-                    break
-            if stop:
-                break
+        path = bbs.getBBSPath(l, xi, m, temp.shape[0], temp.shape[1])
+        for p in range(0, path.shape[1]):
+            # get the next block position to embed
+            m = path[0][p]
+            n = path[1][p]
+            # currently also embedd at Cb color channel (dimension 2)
+            if b[p] == 1:
+                d[m, n, 2] = d[m, n, 2] * (1 + alpha * wm[0, p])
+            else:
+                d[m, n, 2] = d[m, n, 2] * (1 - alpha * wm[0, p])
+    else:
+        '''
+        Standard case, take the l most significant coefficients
+        '''
+        # get indices of the most significant coefficients in d
+        # sort and get flat list of indices
+        i = (-d).argsort(axis=None, kind='mergesort')
+        # convert flat list to DCT coefficients e.g(array([...]), array([...]), array([...])) - rows,columns,channel
+        j = np.unravel_index(i, d.shape)
+        for i in range(0, l):
+            # embedding at l most significant coefficients
+            if b[i] == 1:
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
+            elif b[i] == 0:
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
 
-    # step 4: compute the watermarked image
+    # step 4: compute the watermarked image by inverse DCT
     s = dct.jpgInverseDCT(d, x, y)
     return s
