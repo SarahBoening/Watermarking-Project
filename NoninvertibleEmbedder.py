@@ -13,7 +13,7 @@ def hashimage(image, l):
     return [int(d) for d in hashval[2:(l + 2)]]
 
 
-def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
+def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.2):
     # implements the noninvertible Embedder from lecture 13
     # wm = watermark drawn independently from N(0, 1)-distribution., c = cover work
     # embed_type: switches between embedding methods
@@ -26,6 +26,7 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
     d, x, y = dct.jpgDCT(c)
 
     # 3. VARIATIONS: 1. l most significant bit, 2.upper left corner not the outer ones 3. BBS path
+    # 4. Embed based on variations
     if embed_type == 'BBS':
         '''
         Use the PRNG of Blum, Blum, and Shup with the primes p = 59999 and q = 60107 to
@@ -73,8 +74,19 @@ def noninvertibleEmbedder(wm, c, embed_type='Normal', alpha=0.025):
                     break
             if stop:
                 break
-
-    # 4. Embed based on variations
+    else:
+        '''
+        standard case, take the l most significant coefficients
+        '''
+        # get indices of the most significant coefficients in d
+        i = (-d).argsort(axis=None, kind='mergesort')
+        j = np.unravel_index(i, d.shape)
+        np.vstack(j)
+        for i in range(0, l):
+            if b[i] == 1:
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 + alpha * wm[0, i])
+            else:
+                d[j[0][i], j[1][i], j[2][i]] = d[j[0][i], j[1][i], j[2][i]] * (1 - alpha * wm[0, i])
 
     # 5. inverse DCT
     # s = jpgc.jpgInverseDCT(d, h, w)
