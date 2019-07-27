@@ -11,7 +11,7 @@ img = Image.open('picture.jpg')
 l = 100
 w = np.random.uniform(0.0, 1.0, (1,l))
 print(w)
-s = noninvertibleEmbedder(w, img, embed_type='DCT')
+s = noninvertibleEmbedder(w, img, embed_type='BBS')
 #s = noninvertibleEmbedder(w, img)
 image = Image.fromarray(s.astype('uint8'), 'RGB')
 image.show()
