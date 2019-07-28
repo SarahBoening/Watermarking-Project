@@ -3,11 +3,9 @@ import YCrCbDCT as dct
 from NoninvertibleEmbedder import *
 from PIL import Image
 
-def attackerAgainstNoninvertibleEmbedder(s, embed_type='normal'):
+def attackerAgainstNoninvertibleEmbedder(s, l, embed_type='normal'):
     # step 1: perform DCT of watermarked image
     S, x, y = dct.jpgDCT(s)
-    # initialize l
-    l = 100
     # step 2: generate 2 vectors u, v with random values e N(0,1)
     u = np.random.uniform(0.0, 1.0, (1, l))
     v = np.random.uniform(0.0, 1.0, (1, l))

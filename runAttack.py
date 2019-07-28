@@ -3,12 +3,14 @@ import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image
 
+# initialize l
+l = 100
 # initialize embedding type
 embed_type = 'BBS'
 # open image
 s = Image.open(embed_type+'_wm_picture'+'.jpg')
 # generate fake original, watermark
-fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(s, embed_type)
+fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(s, l, embed_type)
 # convert nparray to image
 fake_c_img = Image.fromarray(fake_c.astype('uint8'), mode='RGB')
 fake_s_img = Image.fromarray(fake_s.astype('uint8'), mode='RGB')
