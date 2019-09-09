@@ -1,0 +1,23 @@
+bbs generator for random numbers
+both in one algorithm
+upper left corner (average light intensity) most sign = highest? Which to take
+BBS random selection of DCT coeffs -> only 1 embedder algorithm
+
+detector: knows using BBS, maybe knows concentrate on BBS coeffs. and everything else that is part of the embedder algorithm. 
+Algorithm is known, key is not, what is all part of the key? xi, p,q ?key is always small
+whenever randommess occurs: potential pseudorandomness -> key has a part for seeding of PRNG
+only BBS seeds unknown, not possible to overcome
+Attacker: we know it owrks this way, maybe destroys Watermark, embedds pseudorandom signal (white noise) in embedder's way?
+-> another original image? close to it
+embed random signal -> how does image look?
+several copies -> average values (Single and multiple image attack?!)
+hash values: copy attack not possible -> discuss
+Attack: use own BBS seed -> output?
+Maybe delete WM close to original but bit values different
+
+Presentation:
+give exercise, then our interpretation of it to justify our procedure
+do what we like
+if good, we're not getting stopped and he skips some questions
+3 questions each, all fields of the lecture, half of lecture is simple
+no questions about simple material, if presentation is good
