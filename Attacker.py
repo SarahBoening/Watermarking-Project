@@ -3,7 +3,8 @@ import YCrCbDCT as dct
 from NoninvertibleEmbedder import *
 from PIL import Image
 
-def attackerAgainstNoninvertibleEmbedder(s, l, embed_type='normal'):
+
+def attackerAgainstNoninvertibleEmbedder(s, l):
     # step 1: perform DCT of watermarked image
     S, x, y = dct.jpgDCT(s)
     # step 2: generate 2 vectors u, v with random values e N(0,1)
@@ -11,9 +12,9 @@ def attackerAgainstNoninvertibleEmbedder(s, l, embed_type='normal'):
     v = np.random.uniform(0.0, 1.0, (1, l))
     # step 3: invert embedding
     # inverse embedding with u
-    c1 = invertEmbedding(S, u, np.ones(l), l, x, y, embed_type)
+    c1 = invertEmbedding(S, u, np.ones(l), l, x, y)
     # inverse embedding with v
-    c2 = invertEmbedding(S, v, np.zeros(l), l, x, y, embed_type)
+    c2 = invertEmbedding(S, v, np.zeros(l), l, x, y)
     # step 4: compute fake original by averaging
     fake_c = np.array((c1 + c2) / 2)
     fake_c_img = Image.fromarray(fake_c.astype('uint8'), mode='RGB')
@@ -27,6 +28,6 @@ def attackerAgainstNoninvertibleEmbedder(s, l, embed_type='normal'):
         elif b[i] == 0:
             fake_w[0][i] = v[0][i]
     # step 7: generate fake watermarked work with embedder
-    fake_s = noninvertibleEmbedder(fake_w, fake_c_img)
+    fake_s = nonInvertibleEmbedder(fake_w, fake_c_img)
 
     return fake_s, fake_c, fake_w

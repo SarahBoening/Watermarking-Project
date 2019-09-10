@@ -1,6 +1,7 @@
 # Implements all needed functionality for the Blum Blum Shup random number generator
 import numpy as np
 
+
 def bbs(n, xi, m):
     """
     Generate the next coefficient.
@@ -16,6 +17,7 @@ def bbs(n, xi, m):
         seed = pow(seed, 2) % m
         bits += pow(2, n-i) * (seed % 2)
     return bits, seed
+
 
 def getBBSPath(num, xi, m, max_x, max_y):
     """
@@ -54,6 +56,7 @@ def getBBSPath(num, xi, m, max_x, max_y):
         path[0, i] = offset_x
         path[1, i] = offset_y
     return path
+
 
 def getDCTBBSPath(num, xi, m, max_x, max_y):
     """

@@ -38,9 +38,9 @@ def nonInvertibleEmbedder(wm, c, alpha=0.04):
     # step 3: insert watermark using 2 variations of embedding type (BBS / DCT)
     p = 5999
     q = 60107
-    M = p * q
+    Mb = p * q
     xi = 20151208
-    path = bbs.getDCTBBSPath(l, xi, M, d.shape[1] - 8, d.shape[0] - 8)
+    path = bbs.getDCTBBSPath(l, xi, Mb, d.shape[1] - 8, d.shape[0] - 8)
     for i in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][i]
@@ -65,28 +65,24 @@ def invertEmbedding(S, wm, b, l, x, y, alpha=0.04):
     l: length of embed string
     x: number of rows
     y: number of columns
-    embed_type: switch between embedding methods
-        1. DCT - use DCT coefficients from 8x8 jpeg transformation of Cb color channel
-        2. BBS - Blum, Blum, Shup to define the paths of the coefficients
-        3. Standard case: most l significant coefficients
     returns: an image as invertion of embedding function
     """
     # calculate DCT of fake cover work
     C = np.copy(S)
-    p = 5999
+    i = 5999
     q = 60107
-    M = p * q
+    Mb = i * q
     xi = 20151208
-    path = bbs.getDCTBBSPath(l, xi, M, C.shape[1] - 8, C.shape[0] - 8)
-    for p in range(0, path.shape[1]):
+    path = bbs.getDCTBBSPath(l, xi, Mb, C.shape[1] - 8, C.shape[0] - 8)
+    for i in range(0, path.shape[1]):
         # get the next block position to embed
-        n = path[0][p]
-        m = path[1][p]
+        n = path[0][i]
+        m = path[1][i]
         # currently also invert embedding at Cb color channel (dimension 2)
-        if b[p] == 1:
-            C[m, n, 2] = C[m, n, 2] / (1 + alpha * wm[0, p])
+        if b[i] == 1:
+            C[m, n, 2] = C[m, n, 2] / (1.0 + alpha * wm[0, i])
         else:
-            C[m, n, 2] = C[m, n, 2] / (1 - alpha * wm[0, p])
+            C[m, n, 2] = C[m, n, 2] / (1 - alpha * wm[0, i])
     # compute the fake coverwork by inverse DCT
     c = dct.jpgInverseDCT(C, x, y)
     return c
