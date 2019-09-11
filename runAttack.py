@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from PIL import Image
 
 # TODO: Perform several attacks (single and multiple public watermarked images)
+print('run attacker')
 # initialize l
 l = 100
 # open image

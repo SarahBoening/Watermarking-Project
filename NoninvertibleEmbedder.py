@@ -76,6 +76,10 @@ def invertEmbedding(S, wm, b, l, x, y, alpha=0.04):
     q = 60107
     Mb = p * q
     xi = 20151208
+    #p = 9539
+    #q = 54193
+    #Mb = p * q
+    #xi = 201981536
     path = bbs.getDCTBBSPath(l, xi, Mb, C.shape[1] - 8, C.shape[0] - 8)
     for i in range(0, path.shape[1]):
         # get the next block position to embed

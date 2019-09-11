@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
 
+print('run embedder')
 # open image (default in RGB)
-img = Image.open('bild.jpg')
+img = Image.open('picture.jpg')
 # img.show()
 # length of the embedded string
 l = 100

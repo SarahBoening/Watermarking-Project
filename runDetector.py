@@ -7,7 +7,7 @@ import Detector
 
 l = 100
 # open stegowork, coverwork and watermark
-c = Image.open('bild.jpg')
+c = Image.open('picture.jpg')
 w = np.load('images/wm'+'.npy')
 s = Image.open('images/wm_picture_new''.jpg')
 print("test against true author:")
