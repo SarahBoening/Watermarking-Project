@@ -5,7 +5,7 @@ import matplotlib.image as mpimg
 from PIL import Image
 
 # open image (default in RGB)
-img = Image.open('picture.jpg')
+img = Image.open('bild.jpg')
 # img.show()
 # length of the embedded string
 l = 100
@@ -18,5 +18,5 @@ s = nonInvertibleEmbedder(w, img)
 wm_img = Image.fromarray(s.astype('uint8'), mode='RGB')
 # wm_img.show()
 # save image and watermark
-wm_img.save('images/wm_picture''.jpg')
+wm_img.save('images/wm_picture_new.jpg')
 np.save('images/wm', w)

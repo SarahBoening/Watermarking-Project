@@ -65,8 +65,8 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04):
     path = np.load("path.npy")
     for p in range(0, path.shape[1]):
         # get the next block position to embed
-        m = path[0][p]
-        n = path[1][p]
+        n = path[0][p]
+        m = path[1][p]
         w = 0
         # currently also embedd at Cb color channel (dimension 2)
         # calculate watermark based on noninvertible algorithm
