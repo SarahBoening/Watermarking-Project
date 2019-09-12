@@ -10,7 +10,7 @@ l = 100
 # open image
 s = Image.open('images/wm_picture_new'+'.jpg')
 # generate fake original, watermark
-fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(s, l)
+fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(s, l, sameSeed=False)
 # convert nparray to image
 fake_c_img = Image.fromarray(fake_c.astype('uint8'), mode='RGB')
 fake_s_img = Image.fromarray(fake_s.astype('uint8'), mode='RGB')

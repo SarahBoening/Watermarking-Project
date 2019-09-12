@@ -13,7 +13,7 @@ from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
 
 
-def detect(given_wm, stegowork, coverwork, TAU=0.15):  # TAU is randomly chosen
+def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=True):  # TAU is randomly chosen
     """
     Execute detection pipeline.
 
@@ -42,7 +42,7 @@ def detect(given_wm, stegowork, coverwork, TAU=0.15):  # TAU is randomly chosen
         return similarity, False
 
 
-def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04):
+def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=True):
     """
     Extract watermark from stego and cover.
 
@@ -62,7 +62,19 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04):
     temp = np.array(sw_coeffs)
         path = bbs.getBBSPath(l, xi, m, temp.shape[0], temp.shape[1])
     '''
-    path = np.load("path.npy")
+    temp = np.array(sw_coeffs)
+    if sameSeed:
+        p = 5999
+        q = 60107
+        Mb = p * q
+        xi = 20151208
+    else:
+        p = 9539
+        q = 54193
+        Mb = p * q
+        xi = 201981536
+    #path = np.load("path.npy")
+    path = bbs.getDCTBBSPath(l, xi, Mb, temp.shape[1]-8, temp.shape[0]-8)
     for p in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][p]

@@ -42,7 +42,6 @@ def nonInvertibleEmbedder(wm, c, alpha=0.04):
     xi = 20151208
     path = bbs.getDCTBBSPath(l, xi, Mb, d.shape[1] - 8, d.shape[0] - 8)
     np.save("path", path)
-    print(d.shape)
     for i in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][i]
@@ -57,7 +56,7 @@ def nonInvertibleEmbedder(wm, c, alpha=0.04):
     return s
 
 
-def invertEmbedding(S, wm, b, l, x, y, alpha=0.04):
+def invertEmbedding(S, wm, b, l, x, y, alpha=0.04, sameSeed=False):
     """
     Embed the image using noninvertible algorithms from lecture 13.
 
@@ -70,16 +69,18 @@ def invertEmbedding(S, wm, b, l, x, y, alpha=0.04):
     returns: an image as invertion of embedding function
     """
     # calculate DCT of fake cover work
-    # TODO change values for BBS seed is unknown to Attacker
     C = np.copy(S)
-    p = 5999
-    q = 60107
-    Mb = p * q
-    xi = 20151208
-    #p = 9539
-    #q = 54193
-    #Mb = p * q
-    #xi = 201981536
+    # same seed for bbs as embedder
+    if sameSeed:
+        p = 5999
+        q = 60107
+        Mb = p * q
+        xi = 20151208
+    else:
+        p = 9539
+        q = 54193
+        Mb = p * q
+        xi = 201981536
     path = bbs.getDCTBBSPath(l, xi, Mb, C.shape[1] - 8, C.shape[0] - 8)
     for i in range(0, path.shape[1]):
         # get the next block position to embed
