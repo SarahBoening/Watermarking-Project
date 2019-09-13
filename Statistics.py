@@ -13,11 +13,17 @@ def chisquaretestcorr(values):
     '''
     y = 0
     num = int(np.floor(values.shape[0]/2))
-    for i in range(1, num):
-        ex = (values[2*i] + values[2*i+1]) / 2
-        di = pow((values[2*i] - ex), 2)
+    print("####################")
+    print(num)
+    print("####################")
+    for i in range(1, num+1):
+        ex = (values[2*i-1] + values[2*i]) / 2
+        di = pow((values[2*i-1] - ex), 2)
+        print(values[2*i-1])
+        print(values[2*i])
         if ex != 0:
             y += di/ex
+    
     print(i)
     return y
 
@@ -29,12 +35,12 @@ def chisquaretestuncorr(values):
     y = 0
     num = int(np.floor(values.shape[0]/2))
     for i in range(1, num):
-        ex = (values[2*i] + values[2*i-1]) / 2
-        di = pow((values[2*i] - ex), 2)
+        ex = (values[2*i-1] + values[2*i-2]) / 2
+        di = pow((values[2*i-1] - ex), 2)
         if ex != 0:
             y += di/ex
     return y
 
 
 def subhistcount(values, min=0, max=255):
-    return np.histogram(values, bins=list(range(min, max+2)))[0]
+    return np.histogram(values, bins=list(range(min, max+1)))[0]
