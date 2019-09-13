@@ -13,7 +13,7 @@ from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
 
 
-def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=True):  # TAU is randomly chosen
+def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=1):  # TAU is randomly chosen
     """
     Execute detection pipeline.
 
@@ -33,7 +33,7 @@ def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=True):  # TAU is r
     cover_coeffs, x, y = jpgDCT(coverwork)
     # Extract watermark from stego and cover
     extracted_wm = inverse_modified_DCT(
-        cover_coeffs, stego_coeffs, b, given_wm.shape[1])
+        cover_coeffs, stego_coeffs, b, given_wm.shape[1], sameSeed)
     # calculate similarity between given and extracted watermark
     similarity = calc_similarity(np.asarray(extracted_wm), given_wm[0])
     if abs(similarity) > TAU:
@@ -42,7 +42,7 @@ def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=True):  # TAU is r
         return similarity, False
 
 
-def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=True):
+def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=1):
     """
     Extract watermark from stego and cover.
 
@@ -63,16 +63,25 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=True):
         path = bbs.getBBSPath(l, xi, m, temp.shape[0], temp.shape[1])
     '''
     temp = np.array(sw_coeffs)
-    if sameSeed:
+    # same as embedder
+    if sameSeed == 1:
         p = 5999
         q = 60107
         Mb = p * q
         xi = 20151208
+    # same as attacker
+    elif sameSeed == 2:
+        p = 9539
+        q = 54193
+        Mb = p * q
+        xi = 83739
+    # new seed
     else:
         p = 9539
         q = 54193
         Mb = p * q
-        xi = 201981536
+        xi = 94574
+
     #path = np.load("path.npy")
     path = bbs.getDCTBBSPath(l, xi, Mb, temp.shape[1]-8, temp.shape[0]-8)
     for p in range(0, path.shape[1]):
@@ -80,7 +89,7 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=True):
         n = path[0][p]
         m = path[1][p]
         w = 0
-        # currently also embedd at Cb color channel (dimension 2)
+        # currently also embed at Cb color channel (dimension 2)
         # calculate watermark based on noninvertible algorithm
         if b[p] == 1:
             w = sw_coeffs[m, n, 2] / (cw_coeffs[m, n, 2] * alpha) - 1 / alpha
