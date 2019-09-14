@@ -2,6 +2,7 @@ import numpy as np
 import BlumBlumShup as bbs
 import YCrCbDCT as dct
 import imagehash
+import store_load as sl
 
 
 def hashimage(image, l):
@@ -22,12 +23,13 @@ def hashimage(image, l):
     return [int(d) for d in hashval[2:(l + 2)]]
 
 
-def nonInvertibleEmbedder(wm, c, alpha=0.04):
+def nonInvertibleEmbedder(wm, c, store_path, alpha=0.04):
     """
     Embed the image using noninvertible algorithms from lecture 13.
 
     wm: watermark
     c: coverwork (the original image)
+    store_path: string
     returns: watermarked image
     """
     l = wm.shape[1]
@@ -35,13 +37,17 @@ def nonInvertibleEmbedder(wm, c, alpha=0.04):
     b = hashimage(c, l)
     # step 2: perform DCT to get coefficients in blocks
     d, x, y = dct.jpgDCT(c)
+    # STORE DATA
+    sl.save_data(d, store_path, 'DCTCoeffs')
     # step 3: insert watermark using 2 variations of embedding type (BBS / DCT)
     p = 5999
     q = 60107
     Mb = p * q
     xi = 20151208
     path = bbs.getDCTBBSPath(l, xi, Mb, d.shape[1] - 8, d.shape[0] - 8)
-    np.save("Analysis_data/path", path)
+    # STORE DATA
+    # save BBSpath
+    sl.save_data(path, store_path, 'BBSpath')
     for i in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][i]
