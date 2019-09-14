@@ -17,4 +17,4 @@ fake_s_img = Image.fromarray(fake_s.astype('uint8'), mode='RGB')
 # save image and watermark
 fake_c_img.save('images/fake_picture_new'+'.jpg')
 fake_s_img.save('images/fake_wm_picture_new'+'.jpg')
-np.save('images/fake_wm', fake_w)
+np.save('Analysis_data/fake_wm', fake_w)

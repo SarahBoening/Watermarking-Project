@@ -52,16 +52,8 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=1):
     l: length of watermark
     returns: extracted watermark
     """
-    # TODO: Needs to be checked if the new implementation method works correctly
     watermark = list()
-    '''
-    p = 5999
-    q = 60107
-    m = p * q
-    xi = 20151208
-    temp = np.array(sw_coeffs)
-        path = bbs.getBBSPath(l, xi, m, temp.shape[0], temp.shape[1])
-    '''
+
     temp = np.array(sw_coeffs)
     # same as embedder
     if sameSeed == 1:
@@ -82,7 +74,7 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=1):
         Mb = p * q
         xi = 94574
 
-    #path = np.load("path.npy")
+    #path = np.load("Analysis_data/path.npy")
     path = bbs.getDCTBBSPath(l, xi, Mb, temp.shape[1]-8, temp.shape[0]-8)
     for p in range(0, path.shape[1]):
         # get the next block position to embed
@@ -110,7 +102,7 @@ def calc_similarity(given_wm, extracted_wm):
     """
 
     numerator = np.dot(extracted_wm, given_wm)
-    denominator = m.sqrt(np.dot(extracted_wm, extracted_wm))  # basic spread spectrum scheme
+    # denominator = m.sqrt(np.dot(extracted_wm, extracted_wm))  # basic spread spectrum scheme
     denominator = m.sqrt(
         np.dot(extracted_wm, extracted_wm) * np.dot(given_wm, given_wm)
     )

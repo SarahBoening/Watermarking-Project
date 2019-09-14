@@ -6,7 +6,7 @@ from PIL import Image
 
 print('run embedder')
 # open image (default in RGB)
-img = Image.open('picture.jpg')
+img = Image.open('images/originals/high_contrast_01.jpg')
 # img.show()
 # length of the embedded string
 l = 100
@@ -20,4 +20,4 @@ wm_img = Image.fromarray(s.astype('uint8'), mode='RGB')
 # wm_img.show()
 # save image and watermark
 wm_img.save('images/wm_picture_new.jpg')
-np.save('images/wm', w)
+np.save('Analysis_data/wm', w)

@@ -13,18 +13,11 @@ def chisquaretestcorr(values):
     '''
     y = 0
     num = int(np.floor(values.shape[0]/2))
-    print("####################")
-    print(num)
-    print("####################")
     for i in range(1, num+1):
         ex = (values[2*i-1] + values[2*i]) / 2
         di = pow((values[2*i-1] - ex), 2)
-        print(values[2*i-1])
-        print(values[2*i])
         if ex != 0:
             y += di/ex
-    
-    print(i)
     return y
 
 

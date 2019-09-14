@@ -41,7 +41,7 @@ def nonInvertibleEmbedder(wm, c, alpha=0.04):
     Mb = p * q
     xi = 20151208
     path = bbs.getDCTBBSPath(l, xi, Mb, d.shape[1] - 8, d.shape[0] - 8)
-    np.save("path", path)
+    np.save("Analysis_data/path", path)
     for i in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][i]
