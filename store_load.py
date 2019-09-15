@@ -26,19 +26,21 @@ def get_imagepaths_by_name(name):
         res.append(os.path.join('images/Originals', img))
     return res
 
-def get_datapaths_by_name(data_type, name):
+def get_datapaths_by_name(data_type, role, name):
     """
     Returns a list of paths of files having 'name' in their name.
 
-    Searchs in 'Analysis_data/data_type/'.
+    Searchs in 'Analysis_data/role/data_type/'.
 
     data_type: string, e.g.: "DCT" or "wm"
+    role: string, used to identify a subfolder, e.g. embedder, detector,
+          attacker
     name: string
 
     Returns a list of paths of found filenames.
     """
 
-    base_path = 'Analysis_data/' + data_type + '/'
+    base_path = 'Analysis_data/' + role + '/' + data_type + '/'
     files = os.listdir(base_path)
     filtered = [file for file in files if name in file]
     res = []
@@ -46,7 +48,7 @@ def get_datapaths_by_name(data_type, name):
         res.append(os.path.join(base_path, file))
     return res
 
-def save_data(data, path_to_file, data_type):
+def save_data(data, path_to_file, role, data_type):
     """
     Saves data in a file and overwrites the file if it already exists.
     
@@ -54,10 +56,11 @@ def save_data(data, path_to_file, data_type):
 
     data: numpy.array, list, string
     path_to_file: string, used to extract the filename to name the file
+    role: string, used to create a subfolder, e.g. embedder, detector, attacker
     data_type: string, type to identify the kind of data stored, e.g. "DCT"
                 or "wm"
     """
-    base_path = 'Analysis_data/' + data_type + '/'
+    base_path = 'Analysis_data/' + role + '/' + data_type + '/'
     # get filename
     image_name = os.path.basename(path_to_file)
     # remove endings like '.jpg'
@@ -67,7 +70,7 @@ def save_data(data, path_to_file, data_type):
         os.makedirs(base_path)
     np.save(base_path + image_name, data)
 
-def save_nparray_as_img(data, path_to_file, data_type):
+def save_nparray_as_img(data, path_to_file, role, data_type):
     """
     Saves data as an image and overwrites the image if it already exists.
     
@@ -75,10 +78,11 @@ def save_nparray_as_img(data, path_to_file, data_type):
 
     data: numpy.array
     path_to_file: string, used to extract the filename to name the image
+    role: string, used to create a subfolder, e.g. embedder, detector, attacker
     data_type: string, type to identify the kind of data stored, e.g. "DCT"
                 or "wm"
     """
-    base_path = 'Analysis_data/' + data_type + '/'
+    base_path = 'Analysis_data/' + role + '/' + data_type + '/'
     # get filename
     image_name = os.path.basename(path_to_file)
     # remove endings like '.jpg'
@@ -99,10 +103,11 @@ def load_data(path_to_file):
 
 if __name__=="__main__":
     bw_paths = get_imagepaths_by_name('black_white_')
+    role = 'embedder'
     for img in bw_paths:
         l = 100
         w = np.random.normal(0.0, 1.0, (1, l))
-        save_data(w, img, 'wm')
-    bw_wm = get_datapaths_by_name('wm', 'black_white_')
+        save_data(w, img, role, 'wm')
+    bw_wm = get_datapaths_by_name('wm', role, 'black_white_')
     for wm in bw_wm:
         print(load_data(wm))
