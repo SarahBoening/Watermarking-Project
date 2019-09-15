@@ -23,13 +23,14 @@ def hashimage(image, l):
     return [int(d) for d in hashval[2:(l + 2)]]
 
 
-def nonInvertibleEmbedder(wm, c, store_path, alpha=0.04):
+def nonInvertibleEmbedder(wm, c, store_path, role, alpha=0.04):
     """
     Embed the image using noninvertible algorithms from lecture 13.
 
     wm: watermark
     c: coverwork (the original image)
     store_path: string
+    role: string, used to create a subfolder, e.g. embedder, detector, attacker
     returns: watermarked image
     """
     l = wm.shape[1]
@@ -38,7 +39,7 @@ def nonInvertibleEmbedder(wm, c, store_path, alpha=0.04):
     # step 2: perform DCT to get coefficients in blocks
     d, x, y = dct.jpgDCT(c)
     # STORE DATA
-    sl.save_data(d, store_path, 'DCTCoeffs')
+    sl.save_data(d, store_path, role, 'DCTCoeffs')
     # step 3: insert watermark using 2 variations of embedding type (BBS / DCT)
     p = 5999
     q = 60107
@@ -47,7 +48,7 @@ def nonInvertibleEmbedder(wm, c, store_path, alpha=0.04):
     path = bbs.getDCTBBSPath(l, xi, Mb, d.shape[1] - 8, d.shape[0] - 8)
     # STORE DATA
     # save BBSpath
-    sl.save_data(path, store_path, 'BBSpath')
+    sl.save_data(path, store_path, role, 'BBSpath')
     for i in range(0, path.shape[1]):
         # get the next block position to embed
         n = path[0][i]
