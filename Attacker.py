@@ -2,9 +2,11 @@ import numpy as np
 import YCrCbDCT as dct
 from NoninvertibleEmbedder import *
 from PIL import Image
+import store_load as sl
 
 
-def attackerAgainstNoninvertibleEmbedder(s, l, sameSeed=False):
+def attackerAgainstNoninvertibleEmbedder(s, l, store_path, sameSeed=False):
+    role = 'attacker'
     # step 1: perform DCT of watermarked image
     S, x, y = dct.jpgDCT(s)
     # step 2: generate 2 vectors u, v with random values e N(0,1)
@@ -28,6 +30,6 @@ def attackerAgainstNoninvertibleEmbedder(s, l, sameSeed=False):
         elif b[i] == 0:
             fake_w[0][i] = v[0][i]
     # step 7: generate fake watermarked work with embedder
-    fake_s = nonInvertibleEmbedder(fake_w, fake_c_img)
+    fake_s = nonInvertibleEmbedder(fake_w, fake_c_img, store_path, role)
 
     return fake_s, fake_c, fake_w
