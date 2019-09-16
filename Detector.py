@@ -13,7 +13,7 @@ from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
 
 
-def detect(given_wm, stegowork, coverwork, TAU=0.15, sameSeed=1):  # TAU is randomly chosen
+def detect(given_wm, stegowork, coverwork, sameSeed, TAU=0.15):  # TAU is randomly chosen
     """
     Execute detection pipeline.
 
