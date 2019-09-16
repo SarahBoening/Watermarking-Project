@@ -26,6 +26,7 @@ def get_imagepaths_by_name(name):
         res.append(os.path.join('images/Originals', img))
     return res
 
+
 def get_datapaths_by_name(data_type, role, name):
     """
     Returns a list of paths of files having 'name' in their name.
@@ -48,6 +49,7 @@ def get_datapaths_by_name(data_type, role, name):
         res.append(os.path.join(base_path, file))
     return res
 
+
 def save_data(data, path_to_file, role, data_type):
     """
     Saves data in a file and overwrites the file if it already exists.
@@ -69,6 +71,7 @@ def save_data(data, path_to_file, role, data_type):
     if not os.path.exists(base_path):
         os.makedirs(base_path)
     np.save(base_path + image_name, data)
+
 
 def save_nparray_as_img(data, path_to_file, role, data_type):
     """
@@ -93,6 +96,7 @@ def save_nparray_as_img(data, path_to_file, role, data_type):
     wm_img = Image.fromarray(data.astype('uint8'), mode='RGB')
     wm_img.save(base_path + image_name + '.jpg')
 
+
 # added this function for completeness but it is actually not very useful
 # because it only wraps np.load()
 def load_data(path_to_file):
@@ -101,7 +105,19 @@ def load_data(path_to_file):
     """
     return np.load(path_to_file)
 
-if __name__=="__main__":
+
+def get_blue_channel(path_to_file):
+    """
+    Extracts blue color channel values - works with DCTCoeff and img_matrix.
+
+    :param path_to_file: string, path to the DCTCoeff file
+    :return: list of floats, contains DCTCoeff of blue channel
+    """
+    data = load_data(path_to_file)
+    return [data[idx_h][0][2] for idx_h, value in enumerate(data)]
+
+
+if __name__ == "__main__":
     bw_paths = get_imagepaths_by_name('black_white_')
     role = 'embedder'
     for img in bw_paths:
