@@ -7,11 +7,12 @@ import store_load as sl
 # TODO: Perform several attacks (single and multiple public watermarked images)
 print('run attacker')
 role = 'attacker'
+img_category = 'high_contrast_'
 # initialize l
 l = 100
 # LOAD DATA
 # open image
-wm_orig_images = sl.get_datapaths_by_name('wm_img', 'embedder', 'high_contrast')
+wm_orig_images = sl.get_datapaths_by_name('wm_img', 'embedder', img_category)
 # TODO: loop over wm_orig_img
 for wm_orig_img in wm_orig_images:
     s = Image.open(wm_orig_img)
