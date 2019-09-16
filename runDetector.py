@@ -9,6 +9,7 @@ import os
 
 l = 100
 sameSeed = 1
+alpha = 0.04
 role = 'detector'
 img_category = ''
 # open stegowork, coverwork and watermark
@@ -30,7 +31,7 @@ for img_paths in image_paths:
     # only one item
     data_paths = sl.get_datapaths_by_name('wm_img', 'embedder', img_name)[0]
     s = Image.open(data_paths)
-    detect_result = Detector.detect(w, s, c, sameSeed)
+    detect_result = Detector.detect(w, s, c, alpha, sameSeed)
     # STORE DATA
     sl.save_data(detect_result, img_paths, role, 'orig_' + str(sameSeed))
 
@@ -49,7 +50,7 @@ for img_paths in image_paths:
     # only one item
     data_paths = sl.get_datapaths_by_name('fake_wm_img', 'attacker', img_name)[0]
     c2 = Image.open(data_paths)
-    detect_result = Detector.detect(w, s, c2, sameSeed)
+    detect_result = Detector.detect(w, s, c2, alpha, sameSeed)
     # STORE DATA
     sl.save_data(detect_result, img_paths, role, 'fake_' + str(sameSeed))
 

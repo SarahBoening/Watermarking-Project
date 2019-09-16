@@ -10,7 +10,8 @@ role = 'embedder'
 img_category = ''
 # open image (default in RGB)
 image_paths = sl.get_imagepaths_by_name(img_category)
-# TODO: loop over img_paths
+alpha = 0.04
+
 for img_path in image_paths:
     print("Working on file: " + img_path)
     img = Image.open(img_path)
@@ -25,7 +26,7 @@ for img_path in image_paths:
     w = np.random.normal(0.0, 1.0, (1, l))
     # print(w)
     # use embedder
-    s = nonInvertibleEmbedder(w, img, img_path, role)
+    s = nonInvertibleEmbedder(w, img, img_path, role, alpha)
     # STORE DATA
     # save watermarked image matrix
     sl.save_data(s, img_path, role, 'wm_img_matrix')

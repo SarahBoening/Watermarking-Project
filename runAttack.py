@@ -10,16 +10,18 @@ role = 'attacker'
 img_category = ''
 # initialize l
 l = 100
+sameSeed = False
+alpha = 0.04
 # LOAD DATA
 # open image
 wm_orig_images = sl.get_datapaths_by_name('wm_img', 'embedder', img_category)
-# TODO: loop over wm_orig_img
+
 for wm_orig_img in wm_orig_images:
     print("Working on file: " + wm_orig_img)
     s = Image.open(wm_orig_img)
     # generate fake original, watermark
     fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(
-        s, l, wm_orig_img, sameSeed=False)
+        s, l, wm_orig_img, sameSeed)
     # STORE DATA
     sl.save_data(fake_c, wm_orig_img, role, 'fake_cw') # cw = coverwork
     sl.save_data(fake_s, wm_orig_img, role, 'fake_s')

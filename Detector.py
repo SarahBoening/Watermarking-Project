@@ -13,7 +13,7 @@ from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
 
 
-def detect(given_wm, stegowork, coverwork, sameSeed, TAU=0.15):  # TAU is randomly chosen
+def detect(given_wm, stegowork, coverwork, alpha, sameSeed, TAU=0.3):  # TAU is randomly chosen
     """
     Execute detection pipeline.
 
@@ -33,7 +33,7 @@ def detect(given_wm, stegowork, coverwork, sameSeed, TAU=0.15):  # TAU is random
     cover_coeffs, x, y = jpgDCT(coverwork)
     # Extract watermark from stego and cover
     extracted_wm = inverse_modified_DCT(
-        cover_coeffs, stego_coeffs, b, given_wm.shape[1], sameSeed)
+        cover_coeffs, stego_coeffs, b, given_wm.shape[1], alpha, sameSeed)
     # calculate similarity between given and extracted watermark
     similarity = calc_similarity(np.asarray(extracted_wm), given_wm[0])
     if abs(similarity) > TAU:
