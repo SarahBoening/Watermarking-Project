@@ -6,32 +6,34 @@ Begin Analysis with:
 - show 4 pictures (original, watermarked, fake original, fake watermarked) for perception test
 
 Analysis per image:
-- Fidelity (perceptual similarity between original and watermarked) = 10*log_10(255/MSE) MSE = mean square error between c and similarity
-- Average of dct coeff values & esp. of upper left corner
+- S Fidelity (perceptual similarity between original and watermarked) = 10*log_10(255/MSE) MSE = mean square error between c and similarity
+
+- A Average of dct coeff values & esp. of upper left corner
 	-> before and after embedding
-- difference of pixels and DCT coeffs
-- compare difference of both originals to see how close the attacker gets
+- A difference of pixels and DCT coeffs
+- A compare difference of both originals to see how close the attacker gets
 	
-- histogram of 4 images all 3 channels
+- A histogram of 4 images all 3 channels
 	-> compare orig & watermarked (original and fake), both watermarked, both originals
 	-> average across all pictures and 1 concrete example?
-- histogram of DCT coeffs
+- A histogram of DCT coeffs
 	-> one with averaged, one with all (x lines)
-- Chi square test for the 4 images	on histogram of dct coeffs (Matlab Code)
+- S Chi square test for the 4 images	on histogram of dct coeffs (Matlab Code)
 	-> since it's not an LSB embedding we shouldn't see much here maybe? 
-- similarity values from detector, average
-- total no. of successful and failed attacks and in which cases (sameseed true or false detector/attacker) -> table
-- no. of modified pixels
-- Robustness: different jpg compressions/Rotations/filtering and then run through the detector again
+- S similarity values from detector, average
+- S total no. of successful and failed attacks and in which cases (sameseed true or false detector/attacker) -> table
+- S no. of modified pixels
+- G Robustness: different jpg compressions/Rotations/filtering and then run through the detector again
 	-> different similiarity values
 	-> change in values/bools
 
+- S file sizes
 -------------------------------------------------------------------------------------------------------------------------------------------
 - Can we find images that worked better/worse than others? How?
 
-- Run it again with different payload lengths?
+- S Run it again with different payload lengths?
 	-> compare robustness, fidelity, no of successful attacks etc. to payload lengths
 	-> table with differences
 	-> graph with payload length/ no of differences/fideilty/ no of successful attacks / modified pixels
-- Test different cases: 1. all 3 have same BBS seed 2. all have different BBS seeds 3. Attacker&Detector have same seed 4. Embedder and Detector have same seed 5. Embedder and Attacker have same seed, detector is different
+- S Test different cases: 1. all 3 have same BBS seed 2. all have different BBS seeds 3. Attacker&Detector have same seed 4. Embedder and Detector have same seed 5. Embedder and Attacker have same seed, detector is different
 	-> compare bools and sim. values -> table
