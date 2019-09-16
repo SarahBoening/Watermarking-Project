@@ -10,10 +10,11 @@ import os
 l = 100
 sameSeed = 1
 role = 'detector'
-img_category = 'high_contrast_'
+img_category = ''
 # open stegowork, coverwork and watermark
 image_paths = sl.get_imagepaths_by_name(img_category)
 for img_paths in image_paths:
+    print("Working on file: " + img_paths)
     # TODO: loop over img_paths and select from that list
     c = Image.open(img_paths)
     # extract name of image to investigate from current path

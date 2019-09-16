@@ -7,11 +7,12 @@ import store_load as sl
 
 print('run embedder')
 role = 'embedder'
-img_category = 'high_contrast_'
+img_category = ''
 # open image (default in RGB)
 image_paths = sl.get_imagepaths_by_name(img_category)
 # TODO: loop over img_paths
 for img_path in image_paths:
+    print("Working on file: " + img_path)
     img = Image.open(img_path)
     # STORE DATA
     # save image matrix

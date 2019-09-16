@@ -7,7 +7,7 @@ import store_load as sl
 # TODO: Perform several attacks (single and multiple public watermarked images)
 print('run attacker')
 role = 'attacker'
-img_category = 'high_contrast_'
+img_category = ''
 # initialize l
 l = 100
 # LOAD DATA
@@ -15,6 +15,7 @@ l = 100
 wm_orig_images = sl.get_datapaths_by_name('wm_img', 'embedder', img_category)
 # TODO: loop over wm_orig_img
 for wm_orig_img in wm_orig_images:
+    print("Working on file: " + wm_orig_img)
     s = Image.open(wm_orig_img)
     # generate fake original, watermark
     fake_s, fake_c, fake_w = attackerAgainstNoninvertibleEmbedder(
