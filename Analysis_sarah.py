@@ -11,7 +11,7 @@ if __name__ == "__main__":
     data_set_paths = sl.get_datapaths_by_name('wm_img', 'embedder', '')
     payload = 'p_100'
     image_paths = sl.get_imagepaths_by_name('')
-    '''
+
     f = open('Analysis_data/Sarah/Fidelity_Embedder_' + payload + '.txt', 'w')
     i = 0
     av = 0
@@ -31,7 +31,6 @@ if __name__ == "__main__":
             A = img_org[:, :, dim].astype('float32')
             sum += (A - B) ** 2
         mse = np.sum(sum) / (3 * img.shape[0] * img.shape[1])
-        print(mse)
         # Fidelity
         fid = 10 * np.log10((255 ** 2 / mse))
         fidArr.append(fid)
@@ -72,8 +71,7 @@ if __name__ == "__main__":
 
     f.write("{0}: {1}".format('Average', np.average(fidArr)))
     f.close()
-    '''
-    '''
+
     f = open('Analysis_data/Sarah/Chi_test_Embedder_' + payload + '.txt', 'w')
     i = 0
     chiArrCorrA = list()
@@ -112,6 +110,7 @@ if __name__ == "__main__":
     f.write("{0}: {1}\n".format('Average Org uncorr', np.average(chiArrUnCorrA)))
     f.write("{0}: {1}\n".format('Average WM corr', np.average(chiArrCorrB)))
     f.write("{0}: {1}\n".format('Average WM uncorr', np.average(chiArrUnCorrB)))
+    f.close()
 
     f = open('Analysis_data/Sarah/Chi_test_Attacker_' + payload + '.txt', 'w')
     data_set_paths_attacker_s = sl.get_datapaths_by_name('fake_wm_img', 'attacker', '')
@@ -154,13 +153,8 @@ if __name__ == "__main__":
     f.write("{0}: {1}\n".format('Average WM corr', np.average(AttchiArrCorrB)))
     f.write("{0}: {1}\n".format('Average WM uncorr', np.average(AttchiArrUnCorrB)))
 
-    print(np.average(np.asarray(chiArrCorrB) - np.asarray(AttchiArrCorrB)))
-    print(np.average(np.asarray(chiArrCorrA) - np.asarray(AttchiArrCorrA)))
-    print(np.average(np.asarray(chiArrCorrB) - np.asarray(AttchiArrCorrB)))
-    print(np.average(np.asarray(chiArrUnCorrB) - np.asarray(AttchiArrUnCorrB)))
     f.close()
-    '''
-    '''
+
     # no of changed pixels
     # org vs wm
     # fake org vs fake wm
@@ -218,26 +212,56 @@ if __name__ == "__main__":
         img_name = img_name.split('.')[0]
         f.write("{0}: {1}\n".format(img_name, sum))
     f.close()
-    '''
+    
     # no of successful attacks & similarity values
-    data_set_paths_st = sl.get_datapaths_by_name('fake_1', 'detector', '')
-    data_set_paths_st_fake = sl.get_datapaths_by_name('orig_1', 'detector', '')
-    f = open('Analysis_data/Sarah/Detection_results' + payload + '.txt', 'w')
+    data_set_paths_st_fake = sl.get_datapaths_by_name('fake_1', 'detector', '')
+    data_set_paths_st = sl.get_datapaths_by_name('orig_1', 'detector', '')
+    f = open('Analysis_data/Sarah/Detection_results_' + payload + '.txt', 'w')
     embed = list()
     attack = list()
     i= 0
     for path in data_set_paths_st:
-        x = np.load(path)[0]
-        y = np.load(data_set_paths_st_fake[i])[0]
-        embed.append(x)
-        attack.append(y)
+        x = np.load(path)
+        y = np.load(data_set_paths_st_fake[i])
+        embed.append(x[0])
+        attack.append(y[0])
+        img_name = os.path.basename(path)
+        img_name = img_name.split('/')[0]
+        img_name = img_name.split('.')[0]
+        f.write("{0}:\n".format(img_name))
+        f.write("{0}: {1}\n".format('Original', x[0]))
+        f.write("{0}: {1}\n".format('Attack', y[0]))
+        f.write("{0}: {1}\n".format('Original', x[1]))
+        f.write("{0}: {1}\n".format('Fake', y[1]))
         i += 1
     embed = np.asarray(embed)
     attack = np.asarray(attack)
-    print(embed.min())
-    print(embed.max())
-    print(np.average(embed))
-    print(attack.min())
-    print(attack.max())
-    print(np.average(attack))
+    f.write("{0}: {1}\n".format('Original min', embed.min()))
+    f.write("{0}: {1}\n".format('Original max', embed.max()))
+    f.write("{0}: {1}\n".format('Original average', np.average(embed)))
+    f.write("{0}: {1}\n".format('Attack min', attack.min()))
+    f.write("{0}: {1}\n".format('Attack max', attack.max()))
+    f.write("{0}: {1}\n".format('Average attack', np.average(attack)))
+
+    f.close()
+
     # irgendwas mit den watermarks
+    data_set_paths_wm = sl.get_datapaths_by_name('wm', 'embedder', '')
+    path_wm = sl.get_datapaths_by_name('fake_wm', 'attacker', '')
+    wmArr = list()
+    wmFakeArr = list()
+    i = 0
+    diff = 0
+    f = open('Analysis_data/Sarah/Watermarks_' + payload + '.txt', 'w')
+    for path in data_set_paths_wm:
+        wmArr.append(np.load(path))
+        wmFakeArr.append(np.load(path_wm[i]))
+    npArr = np.asarray(wmArr)
+    npArrF = np.asarray(wmFakeArr)
+    f.write("{0}: {1}\n".format("Org min", npArr.min()))
+    f.write("{0}: {1}\n".format("Fake min", npArr.max()))
+    f.write("{0}: {1}\n".format("Org max", npArrF.min()))
+    f.write("{0}: {1}\n".format("Fake max", npArrF.max()))
+    f.write("{0}: {1}\n".format("Org avg", np.average(npArr)))
+    f.write("{0}: {1}\n".format("Fake avg", np.average(npArrF)))
+    f.close()
