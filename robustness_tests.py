@@ -83,7 +83,6 @@ def evaluate_compression(img_path, quality, role, alpha, sameSeed, orig_img):
     w = np.load(data_paths)
     data_paths = sl.get_datapaths_by_name('quality_of_' + str(quality), role, img_name)[0]
     s = Image.open(data_paths)
-    print("path of compressed image: " + data_paths)
     detect_result = Detector.detect(w, s, img, alpha, sameSeed)
     # STORE DATA
     sl.save_data(detect_result, img_path, role, str(sameSeed) + '_compress_' + str(quality))
@@ -172,7 +171,7 @@ def run_robustness_tests():
     sameSeed = 1
     alpha = 0.04
     role = 'robustness'
-    img_category = 'low_contrast_'
+    img_category = 'high_contrast_'
     # quality = 10
     # rotation_angle = 360
     # filter_size = 5
@@ -201,6 +200,8 @@ def run_robustness_tests():
         quality = 25
         test_against_compression(img_path, quality, sameSeed, alpha, role)
         quality = 50
+        test_against_compression(img_path, quality, sameSeed, alpha, role)
+        quality = 75
         test_against_compression(img_path, quality, sameSeed, alpha, role)
 
 if __name__ == "__main__":
