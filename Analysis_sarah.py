@@ -11,7 +11,7 @@ if __name__ == "__main__":
     data_set_paths = sl.get_datapaths_by_name('wm_img', 'embedder', '')
     payload = 'p_100'
     image_paths = sl.get_imagepaths_by_name('')
-
+    '''
     f = open('Analysis_data/Sarah/Fidelity_Embedder_' + payload + '.txt', 'w')
     i = 0
     av = 0
@@ -154,7 +154,8 @@ if __name__ == "__main__":
     f.write("{0}: {1}\n".format('Average WM uncorr', np.average(AttchiArrUnCorrB)))
 
     f.close()
-
+    '''
+    '''
     # no of changed pixels
     # org vs wm
     # fake org vs fake wm
@@ -188,7 +189,9 @@ if __name__ == "__main__":
             A = img_org[:,:,dim].astype('float32')
             B = img[:,:,dim].astype('float32')
             C = abs(B - A)
-            sum += np.sum(C[C != 0])
+            C = C[C != 0]
+            C[C>1] = 1
+            print(C)
         i += 1
         img_name = os.path.basename(path)
         img_name = img_name.split('/')[0]
@@ -212,7 +215,7 @@ if __name__ == "__main__":
         img_name = img_name.split('.')[0]
         f.write("{0}: {1}\n".format(img_name, sum))
     f.close()
-    
+
     # no of successful attacks & similarity values
     data_set_paths_st_fake = sl.get_datapaths_by_name('fake_1', 'detector', '')
     data_set_paths_st = sl.get_datapaths_by_name('orig_1', 'detector', '')
@@ -244,7 +247,7 @@ if __name__ == "__main__":
     f.write("{0}: {1}\n".format('Average attack', np.average(attack)))
 
     f.close()
-
+   '''
     # irgendwas mit den watermarks
     data_set_paths_wm = sl.get_datapaths_by_name('wm', 'embedder', '')
     path_wm = sl.get_datapaths_by_name('fake_wm', 'attacker', '')
@@ -259,9 +262,10 @@ if __name__ == "__main__":
     npArr = np.asarray(wmArr)
     npArrF = np.asarray(wmFakeArr)
     f.write("{0}: {1}\n".format("Org min", npArr.min()))
-    f.write("{0}: {1}\n".format("Fake min", npArr.max()))
-    f.write("{0}: {1}\n".format("Org max", npArrF.min()))
+    f.write("{0}: {1}\n".format("Org max", npArr.max()))
+    f.write("{0}: {1}\n".format("Fake min", npArrF.min()))
     f.write("{0}: {1}\n".format("Fake max", npArrF.max()))
     f.write("{0}: {1}\n".format("Org avg", np.average(npArr)))
     f.write("{0}: {1}\n".format("Fake avg", np.average(npArrF)))
     f.close()
+
