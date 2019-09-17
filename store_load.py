@@ -111,10 +111,10 @@ def get_blue_channel(path_to_file):
     Extracts blue color channel values - works with DCTCoeff and img_matrix.
 
     :param path_to_file: string, path to the DCTCoeff file
-    :return: list of floats, contains DCTCoeff of blue channel
+    :return: numpy array of floats, contains DCTCoeff of blue channel
     """
     data = load_data(path_to_file)
-    return [data[idx_h][0][2] for idx_h, value in enumerate(data)]
+    return data[:, :, 2]
 
 
 if __name__ == "__main__":
