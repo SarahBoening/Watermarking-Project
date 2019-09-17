@@ -171,7 +171,7 @@ def run_robustness_tests():
     sameSeed = 1
     alpha = 0.04
     role = 'robustness'
-    img_category = 'high_contrast_'
+    img_category = ''
     # quality = 10
     # rotation_angle = 360
     # filter_size = 5
@@ -203,6 +203,7 @@ def run_robustness_tests():
         test_against_compression(img_path, quality, sameSeed, alpha, role)
         quality = 75
         test_against_compression(img_path, quality, sameSeed, alpha, role)
+
 
 if __name__ == "__main__":
     run_robustness_tests()
