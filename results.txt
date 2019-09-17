@@ -1,0 +1,150 @@
+Working on file: images/Originals/highly_textured_01.jpg
+test against true author:highly_textured_01
+(-0.9704778545279894, True)
+test against fake author:highly_textured_01
+(-0.02640289273250128, False)
+Working on file: images/Originals/highly_textured_03.jpg
+test against true author:highly_textured_03
+(-0.9644957689057165, True)
+test against fake author:highly_textured_03
+(0.044527781479801666, False)
+Working on file: images/Originals/highly_textured_02.jpg
+test against true author:highly_textured_02
+(-0.983669629767079, True)
+test against fake author:highly_textured_02
+(-0.18376958242716784, False)
+Working on file: images/Originals/highly_textured_05.jpg
+test against true author:highly_textured_05
+(-0.9876849756488869, True)
+test against fake author:highly_textured_05
+(-0.0006273742267977641, False)
+Working on file: images/Originals/highly_textured_04.jpg
+test against true author:highly_textured_04
+(-0.9793332043542599, True)
+test against fake author:highly_textured_04
+(0.09113044134775979, False)
+Working on file: images/Originals/normal_image_05.jpg
+test against true author:normal_image_05
+(-0.9736415182513984, True)
+test against fake author:normal_image_05
+(0.11564156259046991, False)
+Working on file: images/Originals/low_contrast_01.jpg
+test against true author:low_contrast_01
+(-0.9626505054790079, True)
+test against fake author:low_contrast_01
+(-0.03130764520114683, False)
+Working on file: images/Originals/black_white_01.jpg
+test against true author:black_white_01
+(-0.8645019634325867, True)
+test against fake author:black_white_01
+(-0.0434073430076085, False)
+Working on file: images/Originals/normal_image_04.jpg
+test against true author:normal_image_04
+(-0.9666247004101653, True)
+test against fake author:normal_image_04
+(-0.08397474216515308, False)
+Working on file: images/Originals/black_white_03.jpg
+test against true author:black_white_03
+(-0.9716796804726878, True)
+test against fake author:black_white_03
+(-0.00508244402915308, False)
+Working on file: images/Originals/low_contrast_03.jpg
+test against true author:low_contrast_03
+(-0.9743641339593956, True)
+test against fake author:low_contrast_03
+(0.06457704776818772, False)
+Working on file: images/Originals/low_contrast_02.jpg
+test against true author:low_contrast_02
+(-0.8938846944586373, True)
+test against fake author:low_contrast_02
+(-0.1668830672639547, False)
+Working on file: images/Originals/black_white_02.JPG
+test against true author:black_white_02
+(-0.9749185909506421, True)
+test against fake author:black_white_02
+(-0.10617636178971984, False)
+Working on file: images/Originals/normal_image_03.jpg
+test against true author:normal_image_03
+(-0.9744715099805544, True)
+test against fake author:normal_image_03
+(0.15396823191443387, False)
+Working on file: images/Originals/normal_image_02.jpg
+test against true author:normal_image_02
+(-0.9631788606673909, True)
+test against fake author:normal_image_02
+(0.17126668369285414, False)
+Working on file: images/Originals/black_white_05.jpg
+test against true author:black_white_05
+(-0.7968112484665258, True)
+test against fake author:black_white_05
+(-0.05887832339103807, False)
+Working on file: images/Originals/low_contrast_05.jpg
+test against true author:low_contrast_05
+(-0.984712459182684, True)
+test against fake author:low_contrast_05
+(-0.018796263982637958, False)
+Working on file: images/Originals/low_contrast_04.jpg
+test against true author:low_contrast_04
+(-0.8855601949341521, True)
+test against fake author:low_contrast_04
+(0.24255413118246816, False)
+Working on file: images/Originals/black_white_04.jpg
+test against true author:black_white_04
+(-0.8169755118918068, True)
+test against fake author:black_white_04
+(-0.21076599199718948, False)
+Working on file: images/Originals/normal_image_01.jpg
+test against true author:normal_image_01
+(-0.8167001682155076, True)
+test against fake author:normal_image_01
+(0.007029050372912873, False)
+Working on file: images/Originals/monochrome_02.jpg
+test against true author:monochrome_02
+(-0.8120872625514111, True)
+test against fake author:monochrome_02
+(0.09371599769266539, False)
+Working on file: images/Originals/high_contrast_04.jpg
+test against true author:high_contrast_04
+(-0.06267759788468555, False)
+test against fake author:high_contrast_04
+(-0.04880757080933604, False)
+Working on file: images/Originals/high_contrast_05.jpg
+test against true author:high_contrast_05
+(-0.9806895572813114, True)
+test against fake author:high_contrast_05
+(-0.1047080693549286, False)
+Working on file: images/Originals/monochrome_03.jpg
+test against true author:monochrome_03
+(-0.6697549586342709, True)
+test against fake author:monochrome_03
+(0.3034543882471485, True)
+Working on file: images/Originals/monochrome_01.jpg
+test against true author:monochrome_01
+(-0.7894039749716666, True)
+test against fake author:monochrome_01
+(-0.3422468674780298, True)
+Working on file: images/Originals/monochrome_04.jpg
+test against true author:monochrome_04
+(-0.9700233704306179, True)
+test against fake author:monochrome_04
+(0.027510497383579344, False)
+Working on file: images/Originals/high_contrast_02.jpg
+test against true author:high_contrast_02
+(-0.9500173241527335, True)
+test against fake author:high_contrast_02
+(-0.1478213799534888, False)
+Working on file: images/Originals/high_contrast_03.jpg
+test against true author:high_contrast_03
+(-0.9734031725598217, True)
+test against fake author:high_contrast_03
+(-0.10616474435929064, False)
+Working on file: images/Originals/monochrome_05.jpg
+test against true author:monochrome_05
+(-0.8119159873156354, True)
+test against fake author:monochrome_05
+(-0.02021887541785057, False)
+Working on file: images/Originals/high_contrast_01.jpg
+test against true author:high_contrast_01
+(-0.8603073983301239, True)
+test against fake author:high_contrast_01
+(0.07867317221936901, False)
