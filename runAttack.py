@@ -28,5 +28,5 @@ for wm_orig_img in wm_orig_images:
     sl.save_data(fake_w, wm_orig_img, role, 'fake_wm')
     # convert nparray to image and save it
     sl.save_nparray_as_img(fake_c, wm_orig_img, role, 'fake_cw_img') # cw = coverwork
-    sl.save_nparray_as_img(fake_s, wm_orig_img, role, 'fake_s_img')
+    # sl.save_nparray_as_img(fake_s, wm_orig_img, role, 'fake_s_img')
     sl.save_nparray_as_img(fake_s, wm_orig_img, role, 'fake_wm_img')
