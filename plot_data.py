@@ -25,7 +25,7 @@ if __name__=="__main__":
     data_set_paths = sl.get_datapaths_by_name('wm_img', 'embedder', 'high_contrast_')
     for path in data_set_paths:
         img = np.array(Image.open(path))
-        # next line actually does the same as "sl.get_blue_channel()"
+        # TODO: check if this is wrong and needs to be changed
         wm_img_data = [img[idx_h][0][2] for idx_h, value in enumerate(img)]
         # print(wm_img_data)
 
