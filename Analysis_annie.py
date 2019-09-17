@@ -66,7 +66,7 @@ if __name__=="__main__":
         pixels_original[name] = blue_channel_DCTs
 
     # pixels of fake image
-    data_set_paths = sl.get_datapaths_by_name('fake_s', 'attacker', '')
+    data_set_paths = sl.get_datapaths_by_name('fake_cw', 'attacker', '')
     pixels_fake = {}
     for path in data_set_paths:
         im = np.load(path)
@@ -80,6 +80,7 @@ if __name__=="__main__":
         pp(np.sum(np.abs(np.subtract(pixels_original[key],pixels_fake[key]))))
     """
 
+    """
     # pixels of image original
     data_set_paths = sl.get_datapaths_by_name('DCTCoeffs', 'embedder', '')
     DCTs_original = {}
@@ -102,3 +103,98 @@ if __name__=="__main__":
         pp(key)
         pp(np.sum(np.equal(DCTs_original[key],DCTs_fake[key]).astype(int)))
         pp(np.sum(np.abs(np.subtract(DCTs_original[key],DCTs_fake[key]))))
+    """
+
+    """
+    # pixels of image original
+    data_set_paths = sl.get_datapaths_by_name('img_matrix', 'embedder', '')
+    pixels_original = {}
+    for path in data_set_paths:
+        im = np.load(path)
+        YCbCr = cv2.cvtColor(im.astype('float32'), cv2.COLOR_RGB2YCR_CB)
+        name = path.split("/")[-1]
+        pixels_original[name] = YCbCr
+    # pixels of image original
+    data_set_paths = sl.get_datapaths_by_name('wm_img_matrix', 'embedder', '')
+    pixels_watermark = {}
+    for path in data_set_paths:
+        im = np.load(path)
+        YCbCr = cv2.cvtColor(im.astype('float32'), cv2.COLOR_RGB2YCR_CB)
+        name = path.split("/")[-1]
+        pixels_watermark[name] = YCbCr
+    # pixels of image fake
+    data_set_paths = sl.get_datapaths_by_name('fake_cw', 'attacker', '')
+    pixels_fake = {}
+    for path in data_set_paths:
+        im = np.load(path)
+        YCbCr = cv2.cvtColor(im.astype('float32'), cv2.COLOR_RGB2YCR_CB)
+        name = path.split("/")[-1]
+        pixels_fake[name] = YCbCr
+    # pixels of image fake watermarked
+    data_set_paths = sl.get_datapaths_by_name('fake_s', 'attacker', '')
+    pixels_wm_fake = {}
+    for path in data_set_paths:
+        im = np.load(path)
+        YCbCr = cv2.cvtColor(im.astype('float32'), cv2.COLOR_RGB2YCR_CB)
+        name = path.split("/")[-1]
+        pixels_wm_fake[name] = YCbCr
+
+    for key in sorted(pixels_wm_fake):
+        color = ('y','r','b')
+        col1 = ["darkgoldenrod","maroon","navy"]
+        col2 = ["goldenrod","coral","royalblue"]
+        col3 = ["gold","orangered","blue"]
+        col4 = ["darkkhaki","firebrick","mediumslateblue"]
+        for i,col in enumerate(color):
+            histr_or = cv2.calcHist([pixels_original[key]],[i],None,[256],[0,256])
+            histr_wm = cv2.calcHist([pixels_watermark[key]],[i],None,[256],[0,256])
+            histr_f = cv2.calcHist([pixels_fake[key]],[i],None,[256],[0,256])
+            histr_wmf = cv2.calcHist([pixels_wm_fake[key]],[i],None,[256],[0,256])
+            plt.plot(histr_or,color = col1[i],linestyle="solid",marker="*")
+            plt.plot(histr_wm,color = col2[i],linestyle="dashed",marker="<")
+            plt.plot(histr_f,color = col3[i],linestyle="dashdot",marker="o")
+            plt.plot(histr_wmf,color = col4[i],linestyle="dotted",marker="x")
+            plt.title(key.strip(".npy"))
+            plt.legend
+            plt.xlim([0,256])
+        plt.show()
+    """
+
+    # DCTs of image original
+    data_set_paths = sl.get_datapaths_by_name('DCTCoeffs', 'embedder', '')
+    DCTs_original = {}
+    for path in data_set_paths:
+      im = np.load(path)
+      name = path.split("/")[-1]
+      DCTs_original[name] = im
+    # DCTs of image original
+    data_set_paths = sl.get_datapaths_by_name('DCTCoeffs_after', 'embedder', '')
+    DCTs_watermark = {}
+    for path in data_set_paths:
+      im = np.load(path)
+      name = path.split("/")[-1]
+      DCTs_watermark[name] = im
+    # DCTs of image fake
+    data_set_paths = sl.get_datapaths_by_name('DCTCoeffs', 'attacker', '')
+    DCTs_fake = {}
+    for path in data_set_paths:
+      im = np.load(path)
+      name = path.split("/")[-1]
+      DCTs_fake[name] = im
+    # DCTs of image fake watermarked
+    data_set_paths = sl.get_datapaths_by_name('DCTCoeffs_after', 'attacker', '')
+    DCTs_wm_fake = {}
+    for path in data_set_paths:
+      im = np.load(path)
+      name = path.split("/")[-1]
+      DCTs_wm_fake[name] = im
+
+    for key in sorted(DCTs_wm_fake):
+      color = ('y','r','b')
+      col1 = ["darkgoldenrod","maroon","navy"]
+      col2 = ["goldenrod","coral","royalblue"]
+      col3 = ["gold","orangered","blue"]
+      col4 = ["darkkhaki","firebrick","mediumslateblue"]
+      for i,col in enumerate(color):
+          
+      plt.show()

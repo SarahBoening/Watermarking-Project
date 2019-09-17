@@ -8,18 +8,18 @@ Begin Analysis with:
 Analysis per image:
 - S Fidelity (perceptual similarity between original and watermarked) = 10*log_10(255/MSE) MSE = mean square error between c and similarity
 
-- A Average of dct coeff values & esp. of upper left corner
+- A Average of dct coeff values & esp. of upper left corner ok
 	-> before and after embedding
-- A difference of pixels and DCT coeffs
-- A compare difference of both originals to see how close the attacker gets
-	
-- A histogram of 4 images all 3 channels
+- A difference of pixels and DCT coeffs ok
+- A compare difference of both originals to see how close the attacker gets ok
+
+- A histogram of 4 images all 3 channels (only cb channels)
 	-> compare orig & watermarked (original and fake), both watermarked, both originals
 	-> average across all pictures and 1 concrete example?
 - A histogram of DCT coeffs
 	-> one with averaged, one with all (x lines)
 - S Chi square test for the 4 images	on histogram of dct coeffs (Matlab Code)
-	-> since it's not an LSB embedding we shouldn't see much here maybe? 
+	-> since it's not an LSB embedding we shouldn't see much here maybe?
 - S similarity values from detector, average
 - S total no. of successful and failed attacks and in which cases (sameseed true or false detector/attacker) -> table
 - S no. of modified pixels
