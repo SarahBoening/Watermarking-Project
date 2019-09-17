@@ -94,7 +94,7 @@ def save_nparray_as_img(data, path_to_file, role, data_type):
     if not os.path.exists(base_path):
         os.makedirs(base_path)
     wm_img = Image.fromarray(data.astype('uint8'), mode='RGB')
-    wm_img.save(base_path + image_name + '.jpg')
+    wm_img.save(base_path + image_name + '.jpg', quality=95)
 
 
 # added this function for completeness but it is actually not very useful
