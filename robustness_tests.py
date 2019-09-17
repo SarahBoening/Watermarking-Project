@@ -5,8 +5,8 @@ import os
 import Detector
 
 
-def evaluate_rotation(img_path, angle, role, alpha, sameSeed):
-    img = Image.open(img_path)
+def evaluate_rotation(img_path, angle, role, alpha, sameSeed, orig_img):
+    img = Image.open(orig_img)
     # extract name of image to investigate from current path
     img_name = os.path.basename(img_path)
     # remove endings
@@ -43,7 +43,12 @@ def test_against_rotation(img_path, angle, sameSeed, alpha, role):
     rotated_img = img.rotate(angle)
     sl.save_nparray_as_img(np.array(rotated_img), img_path, role, 'rotated_by_' + str(angle))
     # rotated_img.show()
-    evaluate_rotation(img_path, angle, role, alpha, sameSeed)
+    # extract name of image to investigate from current path
+    img_name = os.path.basename(img_path)
+    # remove endings
+    img_name = img_name.split('.')[0]
+    orig_img = sl.get_imagepaths_by_name(img_name)[0]
+    evaluate_rotation(img_path, angle, role, alpha, sameSeed, orig_img)
 
 
 def run_robustness_tests():
@@ -51,7 +56,7 @@ def run_robustness_tests():
     alpha = 0.04
     role = 'robustness'
     img_category = 'high_contrast_'
-    rotation_angle = 5
+    rotation_angle = 0
 
     print("robustness tests")
     image_paths = sl.get_datapaths_by_name('wm_img', 'embedder', img_category)
