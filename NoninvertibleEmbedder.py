@@ -58,6 +58,8 @@ def nonInvertibleEmbedder(wm, c, store_path, role, alpha=0.04):
             d[m, n, 2] = d[m, n, 2] * (1 + alpha * wm[0, i])
         elif b[i] == 0:
             d[m, n, 2] = d[m, n, 2] * (1 - alpha * wm[0, i])
+    # STORE DATA
+    sl.save_data(d, store_path, role, 'DCTCoeffs_after')
     # step 4: compute the watermarked image by inverse DCT
     s = dct.jpgInverseDCT(d, x, y)
     return s
