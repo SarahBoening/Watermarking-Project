@@ -1,0 +1,43 @@
+Original vs. WMed
+black_white_01: 1946165.0
+black_white_02: 10184502.0
+black_white_03: 3961847.0
+black_white_04: 14711765.0
+black_white_05: 2630617.0
+Fake original vs. fake WMed
+black_white_01: 57947.0
+black_white_02: 2154.0
+black_white_03: 0.0
+black_white_04: 1509737.0
+black_white_05: 8297.0
+highly_textured_01: 666264.0
+highly_textured_02: 90677.0
+highly_textured_03: 100070.0
+highly_textured_04: 24389.0
+highly_textured_05: 0.0
+high_contrast_01: 402145.0
+high_contrast_02: 38538.0
+high_contrast_03: 4075.0
+high_contrast_04: 87098.0
+high_contrast_05: 120588.0
+low_contrast_01: 0.0
+low_contrast_02: 8988.0
+low_contrast_03: 0.0
+low_contrast_04: 10932.0
+low_contrast_05: 0.0
+monochrome_01: 0.0
+monochrome_02: 0.0
+monochrome_03: 0.0
+monochrome_04: 0.0
+monochrome_05: 0.0
+normal_image_01: 155413.0
+normal_image_02: 92814.0
+normal_image_03: 326.0
+normal_image_04: 715.0
+normal_image_05: 213501.0
+Original vs fake original
+black_white_01: 658501.0
+black_white_02: 1617948.0
+black_white_03: 680223.0
+black_white_04: 6433771.0
+black_white_05: 905585.0
