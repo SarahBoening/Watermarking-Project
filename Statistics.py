@@ -13,7 +13,7 @@ def chisquaretestcorr(values):
     '''
     y = 0
     num = int(np.floor(values.shape[0]/2))
-    for i in range(1, num+1):
+    for i in range(1, num):
         ex = (values[2*i-1] + values[2*i]) / 2
         di = pow((values[2*i-1] - ex), 2)
         if ex != 0:
