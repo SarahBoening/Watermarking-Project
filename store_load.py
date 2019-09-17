@@ -77,7 +77,7 @@ def save_nparray_as_img(data, path_to_file, role, data_type):
     """
     Saves data as an image and overwrites the image if it already exists.
     
-    Files are stored in: 'Analysis_data/data_type/file_name.jpg'.
+    Files are stored in: 'Analysis_data/role/data_type/file_name.jpg'.
 
     data: numpy.array
     path_to_file: string, used to extract the filename to name the image
