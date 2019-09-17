@@ -1,0 +1,31 @@
+black_white_01:
+Original: -0,26281387228862174
+Attack: -0,08304337668876098
+Original: 0,0
+Fake: 0,0
+black_white_02:
+Original: -0,40495832267332577
+Attack: -0,042382282998297535
+Original: 1,0
+Fake: 0,0
+black_white_03:
+Original: -0,3589064483867532
+Attack: -0,08185576510004915
+Original: 1,0
+Fake: 0,0
+black_white_04:
+Original: -0,32941324472291394
+Attack: -0,19283579888869817
+Original: 1,0
+Fake: 0,0
+black_white_05:
+Original: -0,3327057931580282
+Attack: -0,20358724356636507
+Original: 1,0
+Fake: 0,0
+Original min: -0,40495832267332577
+Original max: -0,26281387228862174
+Original average: -0,3377595362459286
+Attack min: -0,20358724356636507
+Attack max: -0,042382282998297535
+Average attack: -0,12074089344843417
