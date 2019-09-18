@@ -1,156 +1,156 @@
 black_white_01:
-Original: -0.8645019634325867
-Attack: -0.0434073430076085
-Original: 1.0
-Fake: 0.0
+Original: -0,7537367659540692
+Attack: 0,09578545863367424
+Original: 1,0
+Fake: 0,0
 black_white_02:
-Original: -0.9749185909506421
-Attack: -0.10617636178971984
-Original: 1.0
-Fake: 0.0
+Original: -0,9724382457692022
+Attack: 0,310937310215314
+Original: 1,0
+Fake: 1,0
 black_white_03:
-Original: -0.9716796804726878
-Attack: -0.00508244402915308
-Original: 1.0
-Fake: 0.0
+Original: -0,9427158121371745
+Attack: -0,12049977996833164
+Original: 1,0
+Fake: 0,0
 black_white_04:
-Original: -0.8169755118918068
-Attack: -0.21076599199718948
-Original: 1.0
-Fake: 0.0
+Original: -0,8271092083679829
+Attack: -0,25434326123339324
+Original: 1,0
+Fake: 0,0
 black_white_05:
-Original: -0.7968112484665258
-Attack: -0.05887832339103807
-Original: 1.0
-Fake: 0.0
+Original: -0,7856093904884089
+Attack: -0,026225208423585424
+Original: 1,0
+Fake: 0,0
 highly_textured_01:
-Original: -0.9704778545279894
-Attack: -0.02640289273250128
-Original: 1.0
-Fake: 0.0
+Original: -0,9205282765832263
+Attack: -0,021237734306089474
+Original: 1,0
+Fake: 0,0
 highly_textured_02:
-Original: -0.983669629767079
-Attack: -0.18376958242716784
-Original: 1.0
-Fake: 0.0
+Original: -0,9339576217677109
+Attack: 0,13290684297938446
+Original: 1,0
+Fake: 0,0
 highly_textured_03:
-Original: -0.9644957689057165
-Attack: 0.044527781479801666
-Original: 1.0
-Fake: 0.0
+Original: -0,9348756220073934
+Attack: -0,2178328773480321
+Original: 1,0
+Fake: 0,0
 highly_textured_04:
-Original: -0.9793332043542599
-Attack: 0.09113044134775979
-Original: 1.0
-Fake: 0.0
+Original: -0,9501673254100137
+Attack: -0,16332681045440753
+Original: 1,0
+Fake: 0,0
 highly_textured_05:
-Original: -0.9876849756488869
-Attack: -0.0006273742267977641
-Original: 1.0
-Fake: 0.0
+Original: -0,9793950180123892
+Attack: -0,13188631731199169
+Original: 1,0
+Fake: 0,0
 high_contrast_01:
-Original: -0.8603073983301239
-Attack: 0.07867317221936901
-Original: 1.0
-Fake: 0.0
+Original: -0,7996376619379373
+Attack: -0,0034183641407810467
+Original: 1,0
+Fake: 0,0
 high_contrast_02:
-Original: -0.9500173241527335
-Attack: -0.1478213799534888
-Original: 1.0
-Fake: 0.0
+Original: -0,9390097703836854
+Attack: 0,01684697768452905
+Original: 1,0
+Fake: 0,0
 high_contrast_03:
-Original: -0.9734031725598217
-Attack: -0.10616474435929064
-Original: 1.0
-Fake: 0.0
+Original: -0,9416379231615774
+Attack: -0,09023431955420068
+Original: 1,0
+Fake: 0,0
 high_contrast_04:
-Original: -0.06267759788468555
-Attack: -0.04880757080933604
-Original: 0.0
-Fake: 0.0
+Original: -0,20846030912067753
+Attack: 0,0755472386321877
+Original: 0,0
+Fake: 0,0
 high_contrast_05:
-Original: -0.9806895572813114
-Attack: -0.1047080693549286
-Original: 1.0
-Fake: 0.0
+Original: -0,9373858539253355
+Attack: -0,018295386822002734
+Original: 1,0
+Fake: 0,0
 low_contrast_01:
-Original: -0.9626505054790079
-Attack: -0.03130764520114683
-Original: 1.0
-Fake: 0.0
+Original: -0,9394205866000067
+Attack: 0,14458254957739408
+Original: 1,0
+Fake: 0,0
 low_contrast_02:
-Original: -0.8938846944586373
-Attack: -0.1668830672639547
-Original: 1.0
-Fake: 0.0
+Original: -0,8576937574809096
+Attack: 0,06772173597604372
+Original: 1,0
+Fake: 0,0
 low_contrast_03:
-Original: -0.9743641339593956
-Attack: 0.06457704776818772
-Original: 1.0
-Fake: 0.0
+Original: -0,9541781085782215
+Attack: -0,08500353255093442
+Original: 1,0
+Fake: 0,0
 low_contrast_04:
-Original: -0.8855601949341521
-Attack: 0.24255413118246816
-Original: 1.0
-Fake: 0.0
+Original: -0,8934396160215407
+Attack: 0,19907243237874894
+Original: 1,0
+Fake: 0,0
 low_contrast_05:
-Original: -0.984712459182684
-Attack: -0.018796263982637958
-Original: 1.0
-Fake: 0.0
+Original: -0,9742099260480662
+Attack: 0,12257981963378857
+Original: 1,0
+Fake: 0,0
 monochrome_01:
-Original: -0.7894039749716666
-Attack: -0.3422468674780298
-Original: 1.0
-Fake: 1.0
+Original: -0,7323491942341213
+Attack: -0,21404480608831525
+Original: 1,0
+Fake: 0,0
 monochrome_02:
-Original: -0.8120872625514111
-Attack: 0.09371599769266539
-Original: 1.0
-Fake: 0.0
+Original: -0,6555959802295938
+Attack: 0,12848847062118568
+Original: 1,0
+Fake: 0,0
 monochrome_03:
-Original: -0.6697549586342709
-Attack: 0.3034543882471485
-Original: 1.0
-Fake: 1.0
+Original: -0,5713016593742039
+Attack: -0,12420775329762596
+Original: 1,0
+Fake: 0,0
 monochrome_04:
-Original: -0.9700233704306179
-Attack: 0.027510497383579344
-Original: 1.0
-Fake: 0.0
+Original: -0,9577196412737271
+Attack: -0,08533908686760822
+Original: 1,0
+Fake: 0,0
 monochrome_05:
-Original: -0.8119159873156354
-Attack: -0.02021887541785057
-Original: 1.0
-Fake: 0.0
+Original: -0,8257271971488106
+Attack: -0,021332325945263336
+Original: 1,0
+Fake: 0,0
 normal_image_01:
-Original: -0.8167001682155076
-Attack: 0.007029050372912873
-Original: 1.0
-Fake: 0.0
+Original: -0,8117288737852926
+Attack: 0,04971472879327757
+Original: 1,0
+Fake: 0,0
 normal_image_02:
-Original: -0.9631788606673909
-Attack: 0.17126668369285414
-Original: 1.0
-Fake: 0.0
+Original: -0,9713754861250227
+Attack: 0,011618715637373118
+Original: 1,0
+Fake: 0,0
 normal_image_03:
-Original: -0.9744715099805544
-Attack: 0.15396823191443387
-Original: 1.0
-Fake: 0.0
+Original: -0,95257277079389
+Attack: 0,06071010884553824
+Original: 1,0
+Fake: 0,0
 normal_image_04:
-Original: -0.9666247004101653
-Attack: -0.08397474216515308
-Original: 1.0
-Fake: 0.0
+Original: -0,9621132855534086
+Attack: -0,05284858148314289
+Original: 1,0
+Fake: 0,0
 normal_image_05:
-Original: -0.9736415182513984
-Attack: 0.11564156259046991
-Original: 1.0
-Fake: 0.0
-Original min: -0.9876849756488869
-Original max: -0.06267759788468555
-Original average: -0.8862205926023117
-Attack min: -0.3422468674780298
-Attack max: 0.3034543882471485
-Average attack: -0.010399685123178083
+Original: -0,9458733264100144
+Attack: 0,1407243843053878
+Original: 1,0
+Fake: 0,0
+Original min: -0,9793950180123892
+Original max: -0,20846030912067753
+Original average: -0,8610654738227871
+Attack min: -0,25434326123339324
+Attack max: 0,310937310215314
+Average attack: -0,0024279790627292825

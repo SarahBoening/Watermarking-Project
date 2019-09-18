@@ -1,0 +1,156 @@
+black_white_01:
+Original: -0,848020647989052
+Attack: 0,3469530838332708
+Original: 1,0
+Fake: 1,0
+black_white_02:
+Original: -0,9676122866972812
+Attack: -0,2709438136114299
+Original: 1,0
+Fake: 0,0
+black_white_03:
+Original: -0,9693544620958027
+Attack: 0,053006022921795536
+Original: 1,0
+Fake: 0,0
+black_white_04:
+Original: -0,7964997141553308
+Attack: -0,2919823409091626
+Original: 1,0
+Fake: 0,0
+black_white_05:
+Original: -0,7688278331535702
+Attack: -0,388329841227949
+Original: 1,0
+Fake: 1,0
+highly_textured_01:
+Original: -0,8680972796121631
+Attack: 0,4616886297919857
+Original: 1,0
+Fake: 1,0
+highly_textured_02:
+Original: -0,9481621143292762
+Attack: 0,051469310638104455
+Original: 1,0
+Fake: 0,0
+highly_textured_03:
+Original: -0,8707910523581109
+Attack: -0,09323550645703037
+Original: 1,0
+Fake: 0,0
+highly_textured_04:
+Original: -0,9708042792350358
+Attack: -0,2781020655429202
+Original: 1,0
+Fake: 0,0
+highly_textured_05:
+Original: -0,987358608353741
+Attack: 0,1433668352443563
+Original: 1,0
+Fake: 0,0
+high_contrast_01:
+Original: -0,8254132464233923
+Attack: -0,3893236354028126
+Original: 1,0
+Fake: 1,0
+high_contrast_02:
+Original: -0,7676839056448467
+Attack: 0,31746459969021046
+Original: 1,0
+Fake: 1,0
+high_contrast_03:
+Original: -0,8658894147370136
+Attack: -0,16152610519313393
+Original: 1,0
+Fake: 0,0
+high_contrast_04:
+Original: 0,006340312151002855
+Attack: -0,364356428108716
+Original: 0,0
+Fake: 1,0
+high_contrast_05:
+Original: -0,9467357249191407
+Attack: 0,3253771780711205
+Original: 1,0
+Fake: 1,0
+low_contrast_01:
+Original: -0,9200379220743579
+Attack: -0,37770146023758383
+Original: 1,0
+Fake: 1,0
+low_contrast_02:
+Original: -0,6258675492666462
+Attack: nan
+Original: 1,0
+Fake: 0,0
+low_contrast_03:
+Original: -0,9469032763411698
+Attack: 0,1509403813647754
+Original: 1,0
+Fake: 0,0
+low_contrast_04:
+Original: -0,920122330598304
+Attack: 0,19452510032810907
+Original: 1,0
+Fake: 0,0
+low_contrast_05:
+Original: -0,9779357269331076
+Attack: -0,515016430690589
+Original: 1,0
+Fake: 1,0
+monochrome_01:
+Original: -0,23137459746835823
+Attack: -0,42248901098971264
+Original: 0,0
+Fake: 1,0
+monochrome_02:
+Original: -0,38842137977483415
+Attack: nan
+Original: 1,0
+Fake: 0,0
+monochrome_03:
+Original: -0,9061181019689197
+Attack: -0,3932108136342105
+Original: 1,0
+Fake: 1,0
+monochrome_04:
+Original: -0,9745127342601534
+Attack: -0,6505678049550226
+Original: 1,0
+Fake: 1,0
+monochrome_05:
+Original: -0,9561049540954885
+Attack: 0,48172914226474384
+Original: 1,0
+Fake: 1,0
+normal_image_01:
+Original: -0,9830063554068755
+Attack: 0,1077156976318193
+Original: 1,0
+Fake: 0,0
+normal_image_02:
+Original: -0,97297226183476
+Attack: nan
+Original: 1,0
+Fake: 0,0
+normal_image_03:
+Original: -0,9815542882078654
+Attack: 0,09531551911980334
+Original: 1,0
+Fake: 0,0
+normal_image_04:
+Original: -0,9764262534136325
+Attack: 0,2775166161053673
+Original: 1,0
+Fake: 0,0
+normal_image_05:
+Original: -0,9665972575647286
+Attack: -0,20211553082736128
+Original: 1,0
+Fake: 0,0
+Original min: -0,987358608353741
+Original max: 0,006340312151002855
+Original average: -0,8374288415587317
+Attack min: nan
+Attack max: nan
+Average attack: nan
