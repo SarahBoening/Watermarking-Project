@@ -1,4 +1,5 @@
 Average DCTs before and after embedding
+=> only 100 change just a bit => small impact
 'black_white_01.npy'
 -0.9375
 -0.937297
@@ -185,44 +186,45 @@ Average upperleft DCTs before and after embedding
 
 -----
 Difference in pixels sum between original and fake images
+=> embedding happens in DCT => we change alot in the pixels
 'black_white_01.npy'
-394399.22
+374274.5
 'black_white_02.npy'
-2827322.0
+2826752.2
 'black_white_03.npy'
 797874.25
 'black_white_04.npy'
-5539781.5
+4886351.5
 'black_white_05.npy'
-356197.97
+355915.53
 'high_contrast_01.npy'
-5589325.5
+5477435.0
 'high_contrast_02.npy'
-2581838.2
+2575705.2
 'high_contrast_03.npy'
-1887718.1
+1887530.4
 'high_contrast_04.npy'
-1077584.1
+1068706.9
 'high_contrast_05.npy'
-4153710.5
+4151781.8
 'highly_textured_01.npy'
-10457713.0
+10313162.0
 'highly_textured_02.npy'
-5279888.0
+5279975.5
 'highly_textured_03.npy'
-6110950.5
+6110715.5
 'highly_textured_04.npy'
-3810954.0
+3810915.0
 'highly_textured_05.npy'
 4426798.0
 'low_contrast_01.npy'
 681215.44
 'low_contrast_02.npy'
-2846898.2
+2846485.0
 'low_contrast_03.npy'
 795666.44
 'low_contrast_04.npy'
-771613.5
+771642.5
 'low_contrast_05.npy'
 1131549.0
 'monochrome_01.npy'
@@ -236,18 +238,21 @@ Difference in pixels sum between original and fake images
 'monochrome_05.npy'
 476470.12
 'normal_image_01.npy'
-1806641.9
+1771425.0
 'normal_image_02.npy'
-2339691.5
+2339560.2
 'normal_image_03.npy'
-3470440.2
+3470071.2
 'normal_image_04.npy'
-6236505.0
+6236244.0
 'normal_image_05.npy'
-7511163.5
+7481999.5
 
 -----
 Difference of coefficients between original and fake images
+=> the fake image is really different from original in terms of
+pixels and DCT coefficients because it uses further embedding on watermarked image
+
 'black_white_01.npy'
 3053
 92.0
