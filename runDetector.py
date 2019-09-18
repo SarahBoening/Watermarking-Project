@@ -1,7 +1,4 @@
-from NoninvertibleEmbedder import nonInvertibleEmbedder
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 from PIL import Image
 import Detector
 import store_load as sl
@@ -36,8 +33,6 @@ for img_paths in image_paths:
 
     print("test against true author:" + img_name)
     print(detect_result)
-    # load_result_path = sl.get_datapaths_by_name('orig_' + str(sameSeed), role, img_name)
-    # print(sl.load_data(load_result_path[0]))
 
     # LOAD DATA
     # open fake original and fake watermark
@@ -45,7 +40,7 @@ for img_paths in image_paths:
     # only one item
     data_paths = sl.get_datapaths_by_name('fake_wm', 'attacker', img_name)[0]
     w = np.load(data_paths)
-    # we need to select the first item because it is still a list eventhough it has
+    # we need to select the first item because it is still a list even though it has
     # only one item
     data_paths = sl.get_datapaths_by_name('fake_wm_img', 'attacker', img_name)[0]
     c2 = Image.open(data_paths)
@@ -55,5 +50,3 @@ for img_paths in image_paths:
 
     print("test against fake author:" + img_name)
     print(detect_result)
-    # load_result_path = sl.get_datapaths_by_name('fake_' + str(sameSeed), role, img_name)
-    # print(sl.load_data(load_result_path[0]))

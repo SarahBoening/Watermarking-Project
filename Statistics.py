@@ -1,7 +1,7 @@
 import numpy as np
 
 '''
-File to add all methods that we need for the analysis
+File to add all methods that we could need for the analysis
 '''
 
 

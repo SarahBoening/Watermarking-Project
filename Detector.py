@@ -7,7 +7,6 @@ to decide if the extracted and given watermark are the same.
 
 import math as m
 import numpy as np
-from pprint import pprint as pp
 import BlumBlumShup as bbs
 from NoninvertibleEmbedder import hashimage
 from YCrCbDCT import jpgDCT
@@ -74,7 +73,6 @@ def inverse_modified_DCT(sw_coeffs, cw_coeffs, b, l, alpha=0.04, sameSeed=1):
         Mb = p * q
         xi = 94574
 
-    #path = np.load("Analysis_data/path.npy")
     path = bbs.getDCTBBSPath(l, xi, Mb, temp.shape[1]-8, temp.shape[0]-8)
     for p in range(0, path.shape[1]):
         # get the next block position to embed
@@ -106,7 +104,6 @@ def calc_similarity(given_wm, extracted_wm):
     denominator = m.sqrt(
         np.dot(extracted_wm, extracted_wm) * np.dot(given_wm, given_wm)
     )
-    # pp(numerator)
-    # pp(denominator)
+
     similarity = numerator / denominator
     return similarity
