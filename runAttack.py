@@ -1,10 +1,7 @@
 from Attacker import attackerAgainstNoninvertibleEmbedder
-import numpy as np
-from matplotlib import pyplot as plt
 from PIL import Image
 import store_load as sl
 
-# TODO: Perform several attacks (single and multiple public watermarked images)
 print('run attacker')
 role = 'attacker'
 img_category = ''

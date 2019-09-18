@@ -1,7 +1,5 @@
 from NoninvertibleEmbedder import nonInvertibleEmbedder
 import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib.image as mpimg
 from PIL import Image
 import store_load as sl
 
@@ -21,7 +19,7 @@ for img_path in image_paths:
 
     # img.show()
     # length of the embedded string
-    l = 100
+    l = 10000
     # watermark drawn independently from N(0, 1)-distribution
     w = np.random.normal(0.0, 1.0, (1, l))
     # print(w)

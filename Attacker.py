@@ -2,7 +2,6 @@ import numpy as np
 import YCrCbDCT as dct
 from NoninvertibleEmbedder import *
 from PIL import Image
-import store_load as sl
 
 
 def attackerAgainstNoninvertibleEmbedder(s, l, store_path, alpha, sameSeed=False):
