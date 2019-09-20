@@ -19,7 +19,7 @@ for img_path in image_paths:
 
     # img.show()
     # length of the embedded string
-    l = 10000
+    l = 100
     # watermark drawn independently from N(0, 1)-distribution
     w = np.random.normal(0.0, 1.0, (1, l))
     # print(w)
